@@ -32,18 +32,17 @@ public class ViewLeaderboard : MonoBehaviour
     {
         ClearLeaderboard();
 
-        while (leaderboardPlayers.Count < quantityPlayersShown)
-        {
-            leaderboardPlayers.Add(null);
-        }
-
         for (int i = 0; i < quantityPlayersShown; i++)
         {
             LeaderboardElement leaderboardElementInstance = Instantiate(_leaderboardElementPrefab, _container);
 
-            if (leaderboardPlayers[i] != null)
+            if (i < leaderboardPlayers.Count)
             {
                 leaderboardElementInstance.Initialize(leaderboardPlayers[i]);
+                if(leaderboardPlayers[i] == leaderboardPlayerPersonal)
+                {
+                    leaderboardElementInstance.TurnOnFrame();
+                }
             }
             else
             {

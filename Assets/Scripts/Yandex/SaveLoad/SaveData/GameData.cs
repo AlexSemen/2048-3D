@@ -3,7 +3,6 @@ using System.Linq;
 
 public class GameData
 {
-    public bool IsNoSticky;
     public int Points;
     public int Coins;
     public bool IsFace;
@@ -14,12 +13,11 @@ public class GameData
     public List<int> LimitingMovementsValues;
     public bool IsAudio;
 
-    public void SetData(PlayerData playerData, FaceData faceData, LimitingData limitingData, bool isNoSticky, bool isAudio)
+    public void SetData(PlayerData playerData, FaceData faceData, LimitingData limitingData, bool isAudio)
     {
         BlockValues = null;
         LimitingMovementsValues = null;
 
-        IsNoSticky = isNoSticky;
         Coins = playerData.Coins;
         IsFace = faceData.IsFace;
         IsLimitMove = limitingData.IsLimitMove;

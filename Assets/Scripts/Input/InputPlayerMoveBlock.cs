@@ -24,16 +24,11 @@ public class InputPlayerMoveBlock : MonoBehaviour
             _mousePositionStart = Input.mousePosition;
         }
 
-        //if(IsCanMove() == false)
-        //{
-        //    return;
-        //}
-
-        if (Input.GetMouseButtonUp(0) && IsCanMove())
+        if (Input.GetMouseButtonUp(0))
         {
             _mousePositionEnd = Input.mousePosition;
 
-            if(Vector3.Distance(_mousePositionStart, _mousePositionEnd) > _minDistanceSwipe)
+            if(Vector3.Distance(_mousePositionStart, _mousePositionEnd) > _minDistanceSwipe && IsCanMove())
             {
                 SwipeDetected();
             }

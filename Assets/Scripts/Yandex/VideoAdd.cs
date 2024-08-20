@@ -1,11 +1,13 @@
 using UnityEngine;
 using Agava.YandexGames;
+using System;
 
 public class VideoAdd : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private int _addCoins = 5;
+    [SerializeField] private int _addCoins = 10;
+
+    public event Action<bool> ChangeAudio;
 
     public void Show()
     {
@@ -20,7 +22,7 @@ public class VideoAdd : MonoBehaviour
     private void OnOpenCallback() 
     {
         Time.timeScale = 0;
-        _audioSource.volume = 0;
+        ChangeAudio?.Invoke(false);
     }
 
     private void OnRewardCallback()
@@ -31,6 +33,6 @@ public class VideoAdd : MonoBehaviour
     private void OnCloseCallback()
     {
         Time.timeScale = 1;
-        _audioSource.volume = 1;
+        ChangeAudio?.Invoke(true);
     }
 }

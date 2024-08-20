@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class LocalizationChecker : MonoBehaviour
 {
-    [SerializeField] private Localization _logInLanguage;
-    [SerializeField] private Localization _shopLanguage;
+    [SerializeField] private LocalizationText _logInLanguage;
+    [SerializeField] private LocalizationText _shopLanguage;
     
     private const string Russian = "ru";
     private const string Turkish = "tr";

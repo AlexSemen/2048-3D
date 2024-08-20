@@ -6,7 +6,6 @@ public class StartMenuPanel : MonoBehaviour
     [SerializeField] private GameObject _newGamePanel;
     [SerializeField] private FaceController _faceController;
     [SerializeField] private ViewVerticalButtons _viewVerticalButtons;
-    [SerializeField] private OrientationChecker _orientationChecker;
     [SerializeField] private ViewButtons _viewStartMenuPanelButtonsHorizon;
     [SerializeField] private ViewButtons _viewStartMenuPanelButtonsVertical;
     
@@ -22,16 +21,12 @@ public class StartMenuPanel : MonoBehaviour
     private void OnEnable()
     {
         UpdateViewButtons();
-
-        SetOrientation(_orientationChecker.IsVertical);
-        _orientationChecker.ChangedVertical += SetOrientation;
     }
 
     private void OnDisable()
     {
         Clear();
         _viewVerticalButtons.UpdateView();
-        _orientationChecker.ChangedVertical -= SetOrientation;
     }
 
     public void OnClickClassic()
@@ -86,12 +81,6 @@ public class StartMenuPanel : MonoBehaviour
     {
         _viewStartMenuPanelButtonsHorizon.UpdateButtons(_shapeType, _isLimit, _shapeType != ShapeType.Null, _faceController.Faces != null);
         _viewStartMenuPanelButtonsVertical.UpdateButtons(_shapeType, _isLimit, _shapeType != ShapeType.Null, _faceController.Faces != null);
-    }
-
-    private void SetOrientation(bool vertical)
-    {
-        _viewStartMenuPanelButtonsVertical.gameObject.SetActive(vertical);
-        _viewStartMenuPanelButtonsHorizon.gameObject.SetActive(!vertical);
     }
 
     private void SetShapType(ShapeType shapeType)

@@ -7,7 +7,6 @@ public class SavingLoading : MonoBehaviour
     [SerializeField] private FaceController _faceController;
     [SerializeField] private Player _player;
     [SerializeField] private LimitingMovements _limitingMovements;
-    [SerializeField] private InAdd _inAdd;
     [SerializeField] private GameObject _panelLoadFace;
     [SerializeField] private StarGame _settingsStarGame;
     [SerializeField] private Audio _audio;
@@ -82,7 +81,7 @@ public class SavingLoading : MonoBehaviour
             return;
 
         _saveData.SetData(_player.GetPlayerData(), _faceController.GetFaceData(), 
-            _limitingMovements.GetLimitingData(), _inAdd.IsBuyNoSticky, _audio.IsTurnedOn);
+            _limitingMovements.GetLimitingData(), _audio.IsTurnedOn);
         _isNeedSave = true;
     }
 
@@ -141,7 +140,6 @@ public class SavingLoading : MonoBehaviour
 
         _loadData = JsonUtility.FromJson<GameData>(_jsonString);
 
-        _inAdd.SetIsBuyNoSticky(_loadData.IsNoSticky);
         _player.—hange—oins(_loadData.Coins);
         _audio.SetIsTurnedOn(_loadData.IsAudio);
 

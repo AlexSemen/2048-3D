@@ -12,6 +12,7 @@ public class StarGame : MonoBehaviour
     [SerializeField] private Button _rotationCubButtonHorizon1;
     [SerializeField] private Button _rotationCubButtonHorizon2;
     [SerializeField] private Button _rotationCubButtonVertical;
+    [SerializeField] private GameObject _helpHint;
 
     public void StartGame(ShapeType shapeType, bool isLimitMove = false, int startPoints = 0, List<int> _blockValues = null)
     {
@@ -21,7 +22,7 @@ public class StarGame : MonoBehaviour
         _limitingMovements.Clear();
 
         _faceController.Init(shapeType, _blockValues);
-        _player.SetPoints(startPoints);
+        _player.StartPoints(startPoints);
 
         SetActivRotationCubButton(shapeType == ShapeType.Cub);
         _viewButtonMove.UpdateActiveButtons(shapeType);
@@ -33,6 +34,11 @@ public class StarGame : MonoBehaviour
 
         _leaderboard.SetSaveLeaderboard(shapeType, isLimitMove);
 
+
+        if(_blockValues == null)
+        {
+            _helpHint.SetActive(true);
+        }
     }
 
     private void SetActivRotationCubButton(bool activ)

@@ -13,7 +13,7 @@ public class ViewLimitingMovements : MonoBehaviour
     private const float _timeAnimation = 0.2f;
 
     private Vector3 _limitPanelPositionHorizon = new Vector3(380, 380, 0);
-    private Vector3 _limitPanelPositionVertical = new Vector3(150, 395, 0);
+    private Vector3 _limitPanelPositionVertical = new Vector3(100, 395, 0);
     private WaitForSecondsRealtime _waitForSecondsRealtime;
     private Coroutine _animationCoroutine;
 

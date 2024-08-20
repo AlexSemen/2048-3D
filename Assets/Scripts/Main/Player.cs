@@ -8,9 +8,12 @@ public class Player : MonoBehaviour
     public event Action ChangedCoins;
     public event Action<int> ChangedPoints;
 
+    private const int PointsToGetCoin = 100;
+
+    private int _pointsForWhichCoinsWereReceived = 0;
     private PlayerData _playerData = new PlayerData();
     private int _points;
-    private int _coins = 10;
+    private int _coins = 0;
 
     public int Points => _points;
     public int Coins => _coins;
@@ -23,12 +26,20 @@ public class Player : MonoBehaviour
     public void AddPoints(CellType cellType)
     {
         SetPoints(_points + _pointsConfigProvider.GetColor(cellType));
+
+        if(_points - _pointsForWhichCoinsWereReceived >= PointsToGetCoin)
+        {
+            _pointsForWhichCoinsWereReceived += PointsToGetCoin;
+            _coins++;
+            ChangedCoins?.Invoke();
+        }
     }
 
-    public void SetPoints(int points)
+    public void StartPoints(int points)
     {
-        _points = points;
-        ChangedPoints?.Invoke(_points);
+        _pointsForWhichCoinsWereReceived = points / PointsToGetCoin * PointsToGetCoin;
+
+        SetPoints(points);
     }
 
     public void —hange—oins(int coins)
@@ -45,6 +56,12 @@ public class Player : MonoBehaviour
     {
         _playerData.SetData(_points, _coins);
         return _playerData;
+    }
+
+    private void SetPoints(int points)
+    {
+        _points = points;
+        ChangedPoints?.Invoke(_points);
     }
 
     private void SetCoins(int coins)

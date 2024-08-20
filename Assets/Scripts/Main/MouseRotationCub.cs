@@ -7,6 +7,8 @@ public class MouseRotationCub : MonoBehaviour
     [SerializeField] private FaceController _faceController;
     [SerializeField] private LimitingMovements _limitingMovements;
     [SerializeField] private DestructionBlocks _destructionBlocks;
+    [SerializeField] private GameObject _noRotationCubButtons;
+    [SerializeField] private GameObject _rotationCubHalp;
 
     private const float  sensitivity = 1.5f;
     private const float _maxTimeOneClick = 0.5f;
@@ -66,13 +68,17 @@ public class MouseRotationCub : MonoBehaviour
         _destructionBlocks.Clear();
         _faceController.UpdateViewFaceController();
         _limitingMovements.TurnOffView();
+        _noRotationCubButtons.SetActive(true);
+        _rotationCubHalp.SetActive(true);
     }
 
-    private void TurnOff()
+    public void TurnOff()
     {
         _isWork = false;
         transform.rotation = Quaternion.identity;
         _viewCamera.SetMouseRotationCub(false);
         _limitingMovements.TurnOnView();
+        _noRotationCubButtons.SetActive(false);
+        _rotationCubHalp.SetActive(false);
     }
 }

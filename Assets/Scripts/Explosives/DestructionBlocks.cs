@@ -7,6 +7,7 @@ public class DestructionBlocks : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private GameObject _loadFacePanel;
 
     [Header("ViewDestructionBlocks")]
     [SerializeField] private ViewDestructionBlocks _viewDestructionBlocksHorizon;
@@ -31,7 +32,7 @@ public class DestructionBlocks : MonoBehaviour
 
     private void Update()
     {
-        if(_isWork == false)
+        if(_isWork == false || _loadFacePanel.activeSelf)
             return;
 
         if (Input.GetKeyDown(KeyCode.Mouse0))

@@ -6,6 +6,7 @@ public class Audio : MonoBehaviour
 {
     [SerializeField] private AudioMixerGroup _audioMixerGroup;
     [SerializeField] private CheckingFocus _ñheckingFocus;
+    [SerializeField] private VideoAdd _videoAdd;
     [SerializeField] private Image _image;
     [SerializeField] private Sprite _spriteOn;
     [SerializeField] private Sprite _spriteOff;
@@ -26,11 +27,13 @@ public class Audio : MonoBehaviour
     private void OnEnable()
     {
         _ñheckingFocus.ChangeFocus += SetWork;
+        _videoAdd.ChangeAudio += SetWork;
     }
 
     private void OnDisable()
     {
         _ñheckingFocus.ChangeFocus -= SetWork;
+        _videoAdd.ChangeAudio -= SetWork;
     }
 
     public void OnClickButton()

@@ -11,7 +11,7 @@ public class ViewFaceGenerator : MonoBehaviour
     private const float AngleRotationCub = 90;
     private const float AngleRotationLine = 20.5f;
     private const float PositionLineZ = 15;
-    private const float PositionCubZ = 1.75f;
+    private const float PositionCubZ = 1.9f;
     
     private ViewCellGenerator _viewCellGenerator;
     private List<ViewFace> _viewFaces = new List<ViewFace>();

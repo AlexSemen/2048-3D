@@ -9,76 +9,100 @@ public class YandexLeaderboard : MonoBehaviour
     [SerializeField] private ViewLeaderboard _viewLeaderboard;
     [SerializeField] private ViewButtons _viewButtons;
     [SerializeField] private GameObject _loadPanel;
+    [SerializeField] private CheckAuthorization _ñheckAuthorization;
 
+    private const string LeaderboardClassic = "Classic";
+    private const string LeaderboardLine = "Line";
+    private const string LeaderboardCub = "Cub";
+    private const string LeaderboardLimit = "Limit";
     private const string AnonymousName = "Anonymous";
     private const float _timeBetween = 5.1f;
-   // private const float _timeBetweenSets = 1.5f;
 
+    private bool _isWork = false;
     private ShapeType _loadShapeType = ShapeType.Null;
     private ShapeType _saveShapeType = ShapeType.Null;
     private bool _isLoadLimit = false;
     private bool _isSaveLimit = false;
-    private readonly List<LeaderboardPlayer> _leaderboardPlayers = new List<LeaderboardPlayer>();
     private string _saveLeaderboard;
-    private string _loadLeaderboard;
+    private string _loadLeaderboard = "";
     private string _uniqueID;
     private string _rank;
     private string _score;
     private string _name;
-    private LeaderboardPlayer _leaderboardPlayerPersonal;
     private LeaderboardPlayer _newLeaderboardPlayers;
     private int _newScore;
-    //private float _delaySet = -1;
     private float _delay = -1;
     private bool _isNeedSet = false;
-    private bool _isNeedGet = false;
+
+    private Dictionary<string, List<LeaderboardPlayer>> _leaderboardsDatas = new Dictionary<string, List<LeaderboardPlayer>>();
+    private Dictionary<string, LeaderboardPlayer> _leaderboardsDatasPersonal = new Dictionary<string, LeaderboardPlayer>();
+    private List<string> _nameLeaderboards = new List<string>();
+    private int _indexLeaderboard = 0;
 
     private void Awake()
     {
         _viewButtons.Init();
+
+        _nameLeaderboards.Add(LeaderboardClassic);
+        _nameLeaderboards.Add(LeaderboardLine);
+        _nameLeaderboards.Add(LeaderboardCub);
+        _nameLeaderboards.Add(LeaderboardLine + LeaderboardLimit);
+        _nameLeaderboards.Add(LeaderboardCub + LeaderboardLimit);
+
+        foreach (string name in _nameLeaderboards)
+        {
+            _leaderboardsDatas.Add(name, new List<LeaderboardPlayer>());
+            _leaderboardsDatasPersonal.Add(name, null);
+        }
     }
 
     private void OnEnable()
     {
         _player.ChangedPoints += CreateSetRequest;
-        _viewLeaderboard.Disable += ClearLoadLeaderboard;
+        _ñheckAuthorization.ChangedAuthorized += SetWork;
     }
 
     private void OnDisable()
     {
         _player.ChangedPoints -= CreateSetRequest;
-        _viewLeaderboard.Disable -= ClearLoadLeaderboard;
+        _ñheckAuthorization.ChangedAuthorized += SetWork;
     }
 
     private void Update()
     {
+        if(_isWork == false) 
+            return;
+
         if (_delay > 0)
         {
             _delay -= Time.deltaTime;
         }
 
-        if (_isNeedSet && _delay <= 0)
+        if (_delay <= 0)
         {
+            if (_indexLeaderboard < _nameLeaderboards.Count)
+            {
+                LoadLeaderboard(_nameLeaderboards[_indexLeaderboard++]);
+            }
+            else
+            {
+                if (_isNeedSet)
+                {
+                    SetPlayerScore();
+                }
+
+                _indexLeaderboard = 0;
+            }
+
             _delay = _timeBetween;
-            
-            SetPlayerScore();
-
-            _isNeedSet = false;
-        }
-
-        if (_isNeedGet && _delay <= 0 && _isNeedSet == false)
-        {
-            _delay = _timeBetween;
-            
-            Fill();
-
-            _isNeedGet = false;
-            _loadPanel.SetActive(false);
         }
     }
 
     public void TurnOnPanel()
     {
+        if (PlayerAccount.IsAuthorized == false)
+            return;
+
         _viewLeaderboard.gameObject.SetActive(true);
 
         if (_saveShapeType == ShapeType.Null)
@@ -95,7 +119,7 @@ public class YandexLeaderboard : MonoBehaviour
     {
         _saveShapeType = shapeType;
         _isSaveLimit = limit;
-        SetLeaderboard(ref _saveLeaderboard, shapeType, limit);
+        _saveLeaderboard = GetLeaderboard(shapeType, limit);
     }
 
     public void OnClickClassic()
@@ -122,46 +146,40 @@ public class YandexLeaderboard : MonoBehaviour
         else
         {
             _isLoadLimit = !_isLoadLimit;
-        }
-
-        _viewButtons.UpdateButtons(_loadShapeType, _isLoadLimit);
-    }
-
-    private void SetLoadLeaderboard(ShapeType shapeType, bool isLimit)
-    {
-        if (_loadShapeType != shapeType || _isLoadLimit != isLimit) 
-        {
-            _loadShapeType = shapeType;
-            _isLoadLimit = isLimit;
-
-            if(shapeType != ShapeType.Classic)
-            {
-                SetLeaderboard(ref _loadLeaderboard, shapeType, isLimit);
-            }
-            else
-            {
-                SetLeaderboard(ref _loadLeaderboard, shapeType, false);
-            }
-
-            CreateGetRequest();
             _viewButtons.UpdateButtons(_loadShapeType, _isLoadLimit);
         }
     }
 
-    private void SetLeaderboard(ref string leaderboard, ShapeType shapeType, bool isLimit)
+    private void SetLoadLeaderboard(ShapeType shapeType, bool isLimit)
     {
+        if (_loadShapeType != shapeType || _isLoadLimit != isLimit)
+        {
+            _loadShapeType = shapeType;
+            _isLoadLimit = isLimit;
+
+            _loadLeaderboard = GetLeaderboard(shapeType, isLimit);
+
+            Fill();
+            _viewButtons.UpdateButtons(_loadShapeType, _isLoadLimit);
+        }
+    }
+
+    private string GetLeaderboard(ShapeType shapeType, bool isLimit)
+    {
+        string leaderboard;
+
         switch (shapeType)
         {
             case ShapeType.Classic:
-                leaderboard = LeaderboardType.Classic.ToString();
+                leaderboard = LeaderboardClassic;
                 break;
 
             case ShapeType.Line:
-                leaderboard = LeaderboardType.Line.ToString();
+                leaderboard = LeaderboardLine;
                 break;
 
             case ShapeType.Cub:
-                leaderboard = LeaderboardType.Cub.ToString();
+                leaderboard = LeaderboardCub;
                 break;
 
             default:
@@ -170,8 +188,10 @@ public class YandexLeaderboard : MonoBehaviour
 
         if (isLimit && shapeType != ShapeType.Classic)
         {
-            leaderboard += LeaderboardType.Limit.ToString();
+            leaderboard += LeaderboardLimit;
         }
+
+        return leaderboard;
     }
 
     private void CreateSetRequest(int score)
@@ -191,23 +211,11 @@ public class YandexLeaderboard : MonoBehaviour
             if (result == null || result.score < _newScore)
                 Leaderboard.SetScore(_saveLeaderboard, _newScore);
         });
+        _isNeedSet = false;
 #endif
     }
 
-    private void CreateGetRequest()
-    {
-        _isNeedGet = true;
-        _loadPanel.SetActive(true);
-    }
-
-    private void ClearLoadLeaderboard()
-    {
-        _loadShapeType = ShapeType.Null;
-        _isLoadLimit = false;
-        _loadLeaderboard = null;
-    }
-
-    private void Fill()
+    private void LoadLeaderboard(string leaderboard)
     {
 #if !UNITY_EDITOR
         if (PlayerAccount.IsAuthorized == false)
@@ -218,10 +226,11 @@ public class YandexLeaderboard : MonoBehaviour
             _uniqueID = result.uniqueID;
         });
 
-        _leaderboardPlayerPersonal = null;
-        _leaderboardPlayers.Clear();
+        _leaderboardsDatas[leaderboard].Clear();
 
-        Leaderboard.GetEntries(_loadLeaderboard, (result) =>
+        Debug.Log(leaderboard);
+
+        Leaderboard.GetEntries(leaderboard, (result) =>
         {
             foreach (var entry in result.entries)
             {
@@ -233,18 +242,58 @@ public class YandexLeaderboard : MonoBehaviour
                     _name = AnonymousName;
 
                 _newLeaderboardPlayers = new LeaderboardPlayer(_rank, _name, _score);
-
+               
                 if (entry.player.uniqueID == _uniqueID)
                 {
-                    _leaderboardPlayerPersonal = _newLeaderboardPlayers;
+                    _leaderboardsDatasPersonal[leaderboard] = _newLeaderboardPlayers;
+                    Debug.Log("ÏÅÐÑÎÍÀË ");
+                    Debug.Log(_leaderboardsDatasPersonal[leaderboard].Rank + " " + _leaderboardsDatasPersonal[leaderboard].Name + " " + _leaderboardsDatasPersonal[leaderboard].Score);
+                    Debug.Log("ÏÅÐÑÎÍÀË ");
                 }
-                
-                _leaderboardPlayers.Add(_newLeaderboardPlayers);
+
+                _leaderboardsDatas[leaderboard].Add(_newLeaderboardPlayers);
             }
 
-            _viewLeaderboard.ConstructLeaderboard(_leaderboardPlayers, _leaderboardPlayerPersonal);
+            if (_viewLeaderboard.gameObject.activeSelf && _loadLeaderboard.Equals(leaderboard))
+            {
+                Fill();
+            }
         });
 #endif
+    }
+
+    private void Fill()
+    {
+#if !UNITY_EDITOR
+        if (PlayerAccount.IsAuthorized == false)
+            return;
+
+        Debug.Log("Count = " + _leaderboardsDatas[_loadLeaderboard].Count);
+
+        if (_leaderboardsDatas[_loadLeaderboard].Count > 0)
+        {
+            foreach (LeaderboardPlayer player in _leaderboardsDatas[_loadLeaderboard])
+            {
+                Debug.Log(player.Rank + " " + player.Name + " " + player.Score + " !!!!!!");
+            }
+        }
+
+        _loadPanel.gameObject.SetActive(_leaderboardsDatas[_loadLeaderboard].Count == 0);
+        _viewLeaderboard.ConstructLeaderboard(_leaderboardsDatas[_loadLeaderboard], _leaderboardsDatasPersonal[_loadLeaderboard]);
+#endif
+    }
+
+    private void SetWork(bool value) 
+    {
+        if (value)
+        {
+            _delay = _timeBetween;
+            _isWork = true;
+        }
+        else
+        {
+            _isWork = false;
+        }
     }
 }
 
