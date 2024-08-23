@@ -9,14 +9,15 @@ public class YandexLeaderboard : MonoBehaviour
     [SerializeField] private ViewLeaderboard _viewLeaderboard;
     [SerializeField] private ViewButtons _viewButtons;
     [SerializeField] private GameObject _loadPanel;
-    [SerializeField] private CheckAuthorization _ñheckAuthorization;
+    [SerializeField] private CheckAuthorization _checkAuthorization;
+    [SerializeField] private YandexSetGet _yandexSetGet;
 
     private const string LeaderboardClassic = "Classic";
     private const string LeaderboardLine = "Line";
     private const string LeaderboardCub = "Cub";
     private const string LeaderboardLimit = "Limit";
     private const string AnonymousName = "Anonymous";
-    private const float _timeBetween = 5.1f;
+    //private const float _timeBetween = 5.1f;
 
     private bool _isWork = false;
     private ShapeType _loadShapeType = ShapeType.Null;
@@ -31,18 +32,20 @@ public class YandexLeaderboard : MonoBehaviour
     private string _name;
     private LeaderboardPlayer _newLeaderboardPlayers;
     private int _newScore;
-    private float _delay = -1;
+    //private float _delay = -1;
     private bool _isNeedSet = false;
+    private int _indexSet;
 
     private Dictionary<string, List<LeaderboardPlayer>> _leaderboardsDatas = new Dictionary<string, List<LeaderboardPlayer>>();
     private Dictionary<string, LeaderboardPlayer> _leaderboardsDatasPersonal = new Dictionary<string, LeaderboardPlayer>();
+    private Dictionary<int, string> _indexLeaderboardsToApplyYandex = new Dictionary<int, string>();
     private List<string> _nameLeaderboards = new List<string>();
-    private int _indexLeaderboard = 0;
+    //private int _indexLeaderboard = 0;
 
     private void Awake()
     {
         _viewButtons.Init();
-
+         
         _nameLeaderboards.Add(LeaderboardClassic);
         _nameLeaderboards.Add(LeaderboardLine);
         _nameLeaderboards.Add(LeaderboardCub);
@@ -51,52 +54,58 @@ public class YandexLeaderboard : MonoBehaviour
 
         foreach (string name in _nameLeaderboards)
         {
+            _indexLeaderboardsToApplyYandex.Add(_yandexSetGet.GetIndexToApplyYandex(), name);
             _leaderboardsDatas.Add(name, new List<LeaderboardPlayer>());
             _leaderboardsDatasPersonal.Add(name, null);
         }
+
+        _indexSet = _yandexSetGet.GetIndexToApplyYandex();
+        _indexLeaderboardsToApplyYandex.Add(_yandexSetGet.GetIndexToApplyYandex(), name);
     }
 
     private void OnEnable()
     {
         _player.ChangedPoints += CreateSetRequest;
-        _ñheckAuthorization.ChangedAuthorized += SetWork;
+        _checkAuthorization.ChangedAuthorized += SetWork;
+        _yandexSetGet.ToApplyYandex += ToApplyYandex;
     }
 
     private void OnDisable()
     {
         _player.ChangedPoints -= CreateSetRequest;
-        _ñheckAuthorization.ChangedAuthorized += SetWork;
+        _checkAuthorization.ChangedAuthorized -= SetWork;
+        _yandexSetGet.ToApplyYandex -= ToApplyYandex;
     }
 
-    private void Update()
-    {
-        if(_isWork == false) 
-            return;
-
-        if (_delay > 0)
-        {
-            _delay -= Time.deltaTime;
-        }
-
-        if (_delay <= 0)
-        {
-            if (_indexLeaderboard < _nameLeaderboards.Count)
-            {
-                LoadLeaderboard(_nameLeaderboards[_indexLeaderboard++]);
-            }
-            else
-            {
-                if (_isNeedSet)
-                {
-                    SetPlayerScore();
-                }
-
-                _indexLeaderboard = 0;
-            }
-
-            _delay = _timeBetween;
-        }
-    }
+    //private void Update()
+    //{
+    //    if(_isWork == false) 
+    //        return;
+    //
+    //    if (_delay > 0)
+    //    {
+    //        _delay -= Time.deltaTime;
+    //    }
+    //
+    //    if (_delay <= 0)
+    //    {
+    //        if (_indexLeaderboard < _nameLeaderboards.Count)
+    //        {
+    //            LoadLeaderboard(_nameLeaderboards[_indexLeaderboard++]);
+    //        }
+    //        else
+    //        {
+    //            if (_isNeedSet)
+    //            {
+    //                SetPlayerScore();
+    //            }
+    //
+    //            _indexLeaderboard = 0;
+    //        }
+    //
+    //        _delay = _timeBetween;
+    //    }
+    //}
 
     public void TurnOnPanel()
     {
@@ -147,6 +156,24 @@ public class YandexLeaderboard : MonoBehaviour
         {
             _isLoadLimit = !_isLoadLimit;
             _viewButtons.UpdateButtons(_loadShapeType, _isLoadLimit);
+        }
+    }
+
+    private void ToApplyYandex(int index)
+    {
+        if (_isWork == false)
+            return;
+
+        if(index == _indexSet && _isNeedSet)
+        {
+            SetPlayerScore();
+        }
+        else
+        {
+            if (_indexLeaderboardsToApplyYandex.ContainsKey(index))
+            {
+                LoadLeaderboard(_indexLeaderboardsToApplyYandex[index]);
+            }
         }
     }
 
@@ -285,15 +312,7 @@ public class YandexLeaderboard : MonoBehaviour
 
     private void SetWork(bool value) 
     {
-        if (value)
-        {
-            _delay = _timeBetween;
-            _isWork = true;
-        }
-        else
-        {
-            _isWork = false;
-        }
+        _isWork = value;
     }
 }
 

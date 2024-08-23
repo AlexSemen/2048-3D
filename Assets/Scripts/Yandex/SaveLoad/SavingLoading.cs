@@ -11,13 +11,15 @@ public class SavingLoading : MonoBehaviour
     [SerializeField] private StarGame _settingsStarGame;
     [SerializeField] private Audio _audio;
     [SerializeField] private StartMenuPanel _startMenuPanel;
+    [SerializeField] private YandexSetGet _yandexSetGet;
 
-    private const float _loadTime = 5;
+    //private const float _loadTime = 5;
     private const float _attemptLoadDelay = 0.25f;
-    private const float _timeDelay = 3.1f;
+    //private const float _timeDelay = 3.1f;
 
     private float _currentLoadTime;
-    private float _currentTimeDelay;
+    private int _indexSave;
+    //private float _currentTimeDelay;
     private string _jsonString;
     private bool _isNeedSave = false;
     private bool _isNeedLoad = false;
@@ -29,50 +31,62 @@ public class SavingLoading : MonoBehaviour
     private void OnEnable()
     {
         _player.ChangedCoins += CreateSaveRequest;
+        _yandexSetGet.ToApplyYandex += Save;
     }
 
     private void OnDisable()
     {
         _player.ChangedCoins -= CreateSaveRequest;
+        _yandexSetGet.ToApplyYandex -= Save;
     }
 
     private void Awake()
     {
         _waitForSecondsRealtime = new WaitForSecondsRealtime(_attemptLoadDelay);
+        _indexSave = _yandexSetGet.GetIndexToApplyYandex();
     }
 
     private void Start()
     {
-        _loadCoroutine = StartCoroutine(StartAttemptsLoad());
+        //_loadCoroutine = StartCoroutine(StartAttemptsLoad());
+
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    if (_currentTimeDelay > 0)
+    //        _currentTimeDelay -= Time.deltaTime;
+    //
+    //    if (_currentTimeDelay > 0)
+    //        return;
+    //
+    //    if (_isNeedSave && _isNeedLoad == false)
+    //    {
+    //        Save();
+    //
+    //        _isNeedSave = false;
+    //        _currentTimeDelay = _timeDelay;
+    //    }
+    //
+    //    if (_isNeedLoad)
+    //    {
+    //        if (_loadCoroutine != null)
+    //            return;
+    //
+    //       // _loadCoroutine = StartCoroutine(StartAttemptsLoad());
+    //
+    //        _isNeedLoad = false;
+    //        _currentTimeDelay = _timeDelay;
+    //    }
+    //
+    //}
+
+    public void Load(float loadTime)
     {
-        if (_currentTimeDelay > 0)
-            _currentTimeDelay -= Time.deltaTime;
-
-        if (_currentTimeDelay > 0)
+        if (_loadCoroutine != null)
             return;
-
-        if (_isNeedSave && _isNeedLoad == false)
-        {
-            Save();
-
-            _isNeedSave = false;
-            _currentTimeDelay = _timeDelay;
-        }
-
-        if (_isNeedLoad)
-        {
-            if (_loadCoroutine != null)
-                return;
-
-            _loadCoroutine = StartCoroutine(StartAttemptsLoad());
-
-            _isNeedLoad = false;
-            _currentTimeDelay = _timeDelay;
-        }
-
+        
+        _loadCoroutine = StartCoroutine(StartAttemptsLoad(loadTime));
     }
 
     public void CreateSaveRequest()
@@ -85,17 +99,20 @@ public class SavingLoading : MonoBehaviour
         _isNeedSave = true;
     }
 
-    public void CreateLoadRequest()
+    //public void CreateLoadRequest()
+    //{
+    //    if (_loadCoroutine != null)
+    //        return;
+    //
+    //    _isNeedLoad = true;
+    //    _isNeedSave = false;
+    //}
+
+    private void Save(int index)
     {
-        if (_loadCoroutine != null)
+        if (_isNeedSave == false && index != _indexSave)
             return;
 
-        _isNeedLoad = true;
-        _isNeedSave = false;
-    }
-
-    private void Save()
-    {
         _jsonString = JsonUtility.ToJson(_saveData);
 
 #if !UNITY_EDITOR
@@ -103,11 +120,11 @@ public class SavingLoading : MonoBehaviour
 #endif
     }
 
-    private IEnumerator StartAttemptsLoad()
+    private IEnumerator StartAttemptsLoad(float loadTime)
     {
-        _isNeedLoad = false;
+        //_isNeedLoad = false;
         _isNeedSave = false;
-        _currentLoadTime = _loadTime;
+        _currentLoadTime = loadTime;
 
         while (_currentLoadTime > 0)
         {

@@ -54315,12 +54315,12 @@ GameObject:
   - component: {fileID: 1714131121}
   - component: {fileID: 1714131120}
   - component: {fileID: 1714131123}
-  - component: {fileID: 1714131124}
   - component: {fileID: 1714131125}
   - component: {fileID: 1714131126}
   - component: {fileID: 1714131127}
   - component: {fileID: 1714131128}
   - component: {fileID: 1714131129}
+  - component: {fileID: 1714131130}
   m_Layer: 0
   m_Name: Yandex
   m_TagString: Untagged
@@ -54369,22 +54369,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1239205322}
   _addCoins: 10
---- !u!114 &1714131124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1714131119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15efb5dca2243ee46849c19c9f2da2c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 1239205322}
-  _inAddDatasList: {fileID: 11400000, guid: 9ddbc957a6cfcf946a226f7aa5dd0028, type: 2}
-  _noStickyButton: {fileID: 0}
-  _isBuyNoSticky: 0
 --- !u!114 &1714131125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54404,6 +54388,7 @@ MonoBehaviour:
   _settingsStarGame: {fileID: 1453810647}
   _audio: {fileID: 1828601336}
   _startMenuPanel: {fileID: 481742339}
+  _yandexSetGet: {fileID: 1714131130}
 --- !u!114 &1714131126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54416,7 +54401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1907e1e6afcec84283850fac7e1f3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _savingLoading: {fileID: 1714131125}
+  _yandexSetGet: {fileID: 1714131130}
 --- !u!114 &1714131127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54441,8 +54426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d83ecb05f6509b48bdf23ce5c365eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logInLanguage: {fileID: 807678701}
-  _shopLanguage: {fileID: 0}
 --- !u!114 &1714131129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54459,7 +54442,21 @@ MonoBehaviour:
   _viewLeaderboard: {fileID: 1376144963}
   _viewButtons: {fileID: 1090406822}
   _loadPanel: {fileID: 223974226}
-  "_\u0441heckAuthorization": {fileID: 1714131126}
+  _checkAuthorization: {fileID: 1714131126}
+  _yandexSetGet: {fileID: 1714131130}
+--- !u!114 &1714131130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714131119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394a5abd51d43184e9ef7a977f68328c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _savingLoading: {fileID: 1714131125}
 --- !u!1 &1718095138
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CheckAuthorization : MonoBehaviour
 {
-    [SerializeField] private SavingLoading _savingLoading;
+    [SerializeField] private YandexSetGet _yandexSetGet;
 
     public event Action<bool> ChangedAuthorized;
     public event Action<bool> ChangedHasPersonalProfileDataPermission;
@@ -78,7 +78,7 @@ public class CheckAuthorization : MonoBehaviour
 
         if (isAuthorized)
         {
-            _savingLoading.CreateLoadRequest();
+            _yandexSetGet.Load();
         }
         
         ChangedAuthorized.Invoke(isAuthorized);
