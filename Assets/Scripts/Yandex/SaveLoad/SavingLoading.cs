@@ -1,6 +1,8 @@
 using Agava.YandexGames;
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SavingLoading : MonoBehaviour
 {
@@ -12,14 +14,12 @@ public class SavingLoading : MonoBehaviour
     [SerializeField] private Audio _audio;
     [SerializeField] private StartMenuPanel _startMenuPanel;
     [SerializeField] private YandexSetGet _yandexSetGet;
+    [SerializeField] private InputField _cloudSaveDataInputField;
 
-    //private const float _loadTime = 5;
     private const float _attemptLoadDelay = 0.25f;
-    //private const float _timeDelay = 3.1f;
 
     private float _currentLoadTime;
     private int _indexSave;
-    //private float _currentTimeDelay;
     private string _jsonString;
     private bool _isNeedSave = false;
     private bool _isNeedLoad = false;
@@ -46,41 +46,6 @@ public class SavingLoading : MonoBehaviour
         _indexSave = _yandexSetGet.GetIndexToApplyYandex();
     }
 
-    private void Start()
-    {
-        //_loadCoroutine = StartCoroutine(StartAttemptsLoad());
-
-    }
-
-    //private void Update()
-    //{
-    //    if (_currentTimeDelay > 0)
-    //        _currentTimeDelay -= Time.deltaTime;
-    //
-    //    if (_currentTimeDelay > 0)
-    //        return;
-    //
-    //    if (_isNeedSave && _isNeedLoad == false)
-    //    {
-    //        Save();
-    //
-    //        _isNeedSave = false;
-    //        _currentTimeDelay = _timeDelay;
-    //    }
-    //
-    //    if (_isNeedLoad)
-    //    {
-    //        if (_loadCoroutine != null)
-    //            return;
-    //
-    //       // _loadCoroutine = StartCoroutine(StartAttemptsLoad());
-    //
-    //        _isNeedLoad = false;
-    //        _currentTimeDelay = _timeDelay;
-    //    }
-    //
-    //}
-
     public void Load(float loadTime)
     {
         if (_loadCoroutine != null)
@@ -99,14 +64,11 @@ public class SavingLoading : MonoBehaviour
         _isNeedSave = true;
     }
 
-    //public void CreateLoadRequest()
-    //{
-    //    if (_loadCoroutine != null)
-    //        return;
-    //
-    //    _isNeedLoad = true;
-    //    _isNeedSave = false;
-    //}
+    public void LoadFaces()
+    {
+        _settingsStarGame.StartGame(_loadData.ShapeType, _loadData.IsLimitMove, _loadData.Points, _loadData.BlockValues);
+        _startMenuPanel.UpdateViewButtons();
+    }
 
     private void Save(int index)
     {
@@ -122,21 +84,16 @@ public class SavingLoading : MonoBehaviour
 
     private IEnumerator StartAttemptsLoad(float loadTime)
     {
-        //_isNeedLoad = false;
         _isNeedSave = false;
         _currentLoadTime = loadTime;
 
         while (_currentLoadTime > 0)
         {
-#if !UNITY_EDITOR
-            if (PlayerAccount.IsAuthorized)
+            if (TryLoad())
             {
-                if (TryLoad())
-                {
-                    _currentLoadTime = 0;
-                }
+                _currentLoadTime = 0;
             }
-#endif
+            
             _currentLoadTime -= _attemptLoadDelay;
             
             yield return _waitForSecondsRealtime;
@@ -150,6 +107,9 @@ public class SavingLoading : MonoBehaviour
 #if !UNITY_EDITOR
         PlayerAccount.GetCloudSaveData((data) => _jsonString = data);
 #endif
+
+        _cloudSaveDataInputField.text = _jsonString;
+
         if (_jsonString == null || string.IsNullOrEmpty(_jsonString))
         {
             return false;
@@ -173,11 +133,5 @@ public class SavingLoading : MonoBehaviour
         }
 
         return true;
-    }
-
-    public void LoadFaces()
-    {
-        _settingsStarGame.StartGame(_loadData.ShapeType, _loadData.IsLimitMove, _loadData.Points, _loadData.BlockValues);
-        _startMenuPanel.UpdateViewButtons();
     }
 }

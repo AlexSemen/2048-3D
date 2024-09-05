@@ -14,7 +14,7 @@ public class YandexSetGet : MonoBehaviour
     private int _indexs = 0;
     private int _currentIndex = 0;
     private int _nullIndex = 0;
-    private bool _isNeedLoad = false;
+    private bool _isNeedLoad = true;
 
     private void Update()
     {

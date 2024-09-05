@@ -34,22 +34,22 @@ public class InputPlayerMoveBlock : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.A) && IsCanMove())
+        if ((Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow)) && IsCanMove())
         {
             _blockMover.Move(MoveType.Left);
         }
 
-        if (Input.GetKeyUp(KeyCode.D) && IsCanMove())
+        if ((Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) && IsCanMove())
         {
             _blockMover.Move(MoveType.Right);
         }
 
-        if (Input.GetKeyUp(KeyCode.S) && IsCanMove())
+        if ((Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) && IsCanMove())
         {
             _blockMover.Move(MoveType.Down);
         }
 
-        if (Input.GetKeyUp(KeyCode.W) && IsCanMove())
+        if ((Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow)) && IsCanMove())
         {
             _blockMover.Move(MoveType.Up);
         }

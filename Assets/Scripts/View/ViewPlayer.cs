@@ -12,14 +12,36 @@ public class ViewPlayer : MonoBehaviour
     [SerializeField] private Button _logInButton;
     [SerializeField] private Button _requestPersonalDataButton;
     [SerializeField] private CheckAuthorization _ÒheckAuthorization;
-#if !UNITY_EDITOR
-    private const string AnonymousName = "Anonymous";
-#endif
+    [SerializeField] private LocalizationChecker _localizationChecker;
+  
+    private const string AnonymousRu = "¿ÌÓÌËÏ";
+    private const string AnonymousEn = "Anonymous";
+    private const string AnonymousTr = "Anonim";
+
+    private string _anonymousName;
     private Player _player;
 
     private void Awake()
     {
         _player = GetComponent<Player>();
+    }
+
+    private void Start()
+    {
+        switch (_localizationChecker.LocalizationType)
+        {
+            case LocalizationType.ru:
+                _anonymousName = AnonymousRu;
+                break;
+
+            case LocalizationType.tr:
+                _anonymousName = AnonymousTr;
+                break;
+
+            default:
+                _anonymousName = AnonymousEn;
+                break;
+        }
     }
 
     private void OnEnable()
@@ -71,7 +93,7 @@ public class ViewPlayer : MonoBehaviour
         }
         else
         {
-            _name.text = AnonymousName;
+            _name.text = _anonymousName;
         }
 #endif
     }
