@@ -14,8 +14,7 @@ public class SavingLoading : MonoBehaviour
     [SerializeField] private Audio _audio;
     [SerializeField] private StartMenuPanel _startMenuPanel;
     [SerializeField] private YandexSetGet _yandexSetGet;
-    [SerializeField] private InputField _cloudSaveDataInputField;
-
+    
     private const float _attemptLoadDelay = 0.25f;
 
     private float _currentLoadTime;
@@ -107,9 +106,7 @@ public class SavingLoading : MonoBehaviour
 #if !UNITY_EDITOR
         PlayerAccount.GetCloudSaveData((data) => _jsonString = data);
 #endif
-
-        _cloudSaveDataInputField.text = _jsonString;
-
+        
         if (_jsonString == null || string.IsNullOrEmpty(_jsonString))
         {
             return false;
@@ -117,7 +114,7 @@ public class SavingLoading : MonoBehaviour
 
         _loadData = JsonUtility.FromJson<GameData>(_jsonString);
 
-        _player.—hange—oins(_loadData.Coins);
+        _player.√ëhange√ëoins(_loadData.Coins);
         _audio.SetIsTurnedOn(_loadData.IsAudio);
 
         if (_loadData.IsFace)
