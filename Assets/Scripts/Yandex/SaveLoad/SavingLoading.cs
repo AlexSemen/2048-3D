@@ -114,7 +114,7 @@ public class SavingLoading : MonoBehaviour
 
         _loadData = JsonUtility.FromJson<GameData>(_jsonString);
 
-        _player.ÑhangeÑoins(_loadData.Coins);
+        _player.СhangeСoins(_loadData.Coins);
         _audio.SetIsTurnedOn(_loadData.IsAudio);
 
         if (_loadData.IsFace)
