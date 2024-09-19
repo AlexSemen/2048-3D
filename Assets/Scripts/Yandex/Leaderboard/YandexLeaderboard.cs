@@ -17,6 +17,11 @@ public class YandexLeaderboard : MonoBehaviour
     private const string LeaderboardCub = "Cub";
     private const string LeaderboardLimit = "Limit";
     private const string AnonymousName = "Anonymous";
+
+    private readonly Dictionary<string, List<LeaderboardPlayer>> _leaderboardsDatas = new Dictionary<string, List<LeaderboardPlayer>>();
+    private readonly Dictionary<string, LeaderboardPlayer> _leaderboardsDatasPersonal = new Dictionary<string, LeaderboardPlayer>();
+    private readonly Dictionary<int, string> _indexLeaderboardsToApplyYandex = new Dictionary<int, string>();
+    private readonly List<string> _nameLeaderboards = new List<string>();
     
     private bool _isWork = false;
     private ShapeType _loadShapeType = ShapeType.Null;
@@ -31,13 +36,8 @@ public class YandexLeaderboard : MonoBehaviour
     private string _name;
     private LeaderboardPlayer _newLeaderboardPlayers;
     private int _newScore;
-        private bool _isNeedSet = false;
+    private bool _isNeedSet = false;
     private int _indexSet;
-
-    private Dictionary<string, List<LeaderboardPlayer>> _leaderboardsDatas = new Dictionary<string, List<LeaderboardPlayer>>();
-    private Dictionary<string, LeaderboardPlayer> _leaderboardsDatasPersonal = new Dictionary<string, LeaderboardPlayer>();
-    private Dictionary<int, string> _indexLeaderboardsToApplyYandex = new Dictionary<int, string>();
-    private List<string> _nameLeaderboards = new List<string>();
     
     private void Awake()
     {
@@ -222,8 +222,6 @@ public class YandexLeaderboard : MonoBehaviour
 
         _leaderboardsDatas[leaderboard].Clear();
 
-        Debug.Log(leaderboard);
-
         Leaderboard.GetEntries(leaderboard, (result) =>
         {
             foreach (var entry in result.entries)
@@ -240,9 +238,6 @@ public class YandexLeaderboard : MonoBehaviour
                 if (entry.player.uniqueID == _uniqueID)
                 {
                     _leaderboardsDatasPersonal[leaderboard] = _newLeaderboardPlayers;
-                    Debug.Log("ÏÅÐÑÎÍÀË ");
-                    Debug.Log(_leaderboardsDatasPersonal[leaderboard].Rank + " " + _leaderboardsDatasPersonal[leaderboard].Name + " " + _leaderboardsDatasPersonal[leaderboard].Score);
-                    Debug.Log("ÏÅÐÑÎÍÀË ");
                 }
 
                 _leaderboardsDatas[leaderboard].Add(_newLeaderboardPlayers);
@@ -262,16 +257,6 @@ public class YandexLeaderboard : MonoBehaviour
         if (PlayerAccount.IsAuthorized == false)
             return;
 
-        Debug.Log("Count = " + _leaderboardsDatas[_loadLeaderboard].Count);
-
-        if (_leaderboardsDatas[_loadLeaderboard].Count > 0)
-        {
-            foreach (LeaderboardPlayer player in _leaderboardsDatas[_loadLeaderboard])
-            {
-                Debug.Log(player.Rank + " " + player.Name + " " + player.Score + " !!!!!!");
-            }
-        }
-
         _loadPanel.gameObject.SetActive(_leaderboardsDatas[_loadLeaderboard].Count == 0);
         _viewLeaderboard.ConstructLeaderboard(_leaderboardsDatas[_loadLeaderboard], _leaderboardsDatasPersonal[_loadLeaderboard]);
 #endif
@@ -282,4 +267,3 @@ public class YandexLeaderboard : MonoBehaviour
         _isWork = value;
     }
 }
-

@@ -10,8 +10,9 @@ public class Player : MonoBehaviour
 
     private const int PointsToGetCoin = 100;
 
+    private readonly PlayerData _playerData = new PlayerData();
+
     private int _pointsForWhichCoinsWereReceived = 0;
-    private PlayerData _playerData = new PlayerData();
     private int _points;
     private int _coins = 0;
 

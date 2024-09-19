@@ -4,12 +4,13 @@ using DG.Tweening;
 public class AnimationFaceMove : MonoBehaviour
 {
     [SerializeField] private ViewFaceController _controller;
-    
+
+    private readonly float _time = 0.5f;
+    private readonly float MoveLineRotate = 20.5f;
+    private readonly float MoveCubRotate = 90;
+
     private bool _isTween;
     private Tween _tween;
-    private float _time = 0.5f;
-    private float MoveLineRotate = 20.5f;
-    private float MoveCubRotate = 90;
 
     public bool IsMove => _isTween;
 

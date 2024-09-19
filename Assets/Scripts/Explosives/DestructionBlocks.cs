@@ -13,6 +13,8 @@ public class DestructionBlocks : MonoBehaviour
     [SerializeField] private ViewDestructionBlocks _viewDestructionBlocksHorizon;
     [SerializeField] private ViewDestructionBlocks _viewDestructionBlocksVertical;
 
+    private readonly float _raycastDistance = 15;
+    
     private bool _isWork = false;
     private Cell _targetCell;
     private List<Cell> _targetCells;
@@ -22,8 +24,6 @@ public class DestructionBlocks : MonoBehaviour
     private Ray _myRay;
    
     public bool IsWork => _isWork;
-
-    private float _raycastDistance = 15;
 
     private void Awake()
     {

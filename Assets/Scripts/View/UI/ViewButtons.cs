@@ -13,7 +13,7 @@ public class ViewButtons : MonoBehaviour
     [SerializeField] private Button _playButton;
     [SerializeField] private Image _continueImage;
 
-    private Dictionary<ButtonType, ButtonViewData> _buttonByCellType = new Dictionary<ButtonType, ButtonViewData>();
+    private readonly Dictionary<ButtonType, ButtonViewData> _buttonByCellType = new Dictionary<ButtonType, ButtonViewData>();
 
     public void Init()
     {

@@ -6,8 +6,8 @@ public class ExplosionConfigProvider
 {
     [SerializeField] private FaceController _faceController;
     
-    private IExplosion _pointExplosion = new PointExplosion();
-    private IExplosion _areaExplosion = new AreaExplosion();
+    private readonly IExplosion _pointExplosion = new PointExplosion();
+    private readonly IExplosion _areaExplosion = new AreaExplosion();
 
     public ExplosionConfigProvider(FaceController faceController)
     {

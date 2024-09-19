@@ -11,9 +11,10 @@ public class SpamerBlocks : MonoBehaviour
     private const int Max—hanceSpamBlokRandomFace = 100;
     private const int MinIndexSpamBlokRandomFace = 1;
     
+    private readonly List<Cell> _freeCells = new List<Cell>();
+    private readonly int[] _spawnBlockMeaning = new int[2] { 4, 8 };
+
     private FaceController _faceController;
-    private List<Cell> _freeCells = new List<Cell>();
-    private int[] _spawnBlockMeaning = new int[2] { 4, 8 };
     private Cell _currentCell;
 
     private void Awake()

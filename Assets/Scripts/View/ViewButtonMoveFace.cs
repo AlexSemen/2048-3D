@@ -14,15 +14,14 @@ public class ViewButtonMoveFace : MonoBehaviour
         {
             _moveCubButtonsVertical.SetActive(false);
             _moveLineButtonsVertical.SetActive(false);
-            _moveCubButtonsHorizon.gameObject.SetActive(false);
-            _moveLineButtonsHorizon.gameObject.SetActive(false);
+            _moveCubButtonsHorizon.SetActive(false);
+            _moveLineButtonsHorizon.SetActive(false);
             _viewVerticalButtons.UpdateView();
-
         }
         else
         {
-            _moveLineButtonsHorizon.gameObject.SetActive(true);
-            _moveCubButtonsHorizon.gameObject.SetActive(shapeType == ShapeType.Cub);
+            _moveLineButtonsHorizon.SetActive(true);
+            _moveCubButtonsHorizon.SetActive(shapeType == ShapeType.Cub);
             _moveCubButtonsVertical.SetActive(shapeType == ShapeType.Cub);
             _moveLineButtonsVertical.SetActive(shapeType != ShapeType.Cub);
             _viewVerticalButtons.UpdateView();

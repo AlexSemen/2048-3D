@@ -34,7 +34,6 @@ public class StarGame : MonoBehaviour
 
         _leaderboard.SetSaveLeaderboard(shapeType, isLimitMove);
 
-
         if(_blockValues == null)
         {
             _helpHint.SetActive(true);

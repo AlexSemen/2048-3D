@@ -11,16 +11,17 @@ public class ViewLeaderboard : MonoBehaviour
 
     public event Action Disable;
 
-    private const string _nullRank = "-";
-    private const string _nullName = "-----";
-    private const string _nullScore = "---";
+    private const string NullRank = "-";
+    private const string NullName = "-----";
+    private const string NullScore = "---";
 
-    private List<LeaderboardElement> _spawnedElements = new List<LeaderboardElement>();
+    private readonly List<LeaderboardElement> _spawnedElements = new List<LeaderboardElement>();
+
     private LeaderboardPlayer _leaderboardPlayerNull;
 
     private void Awake()
     {
-        _leaderboardPlayerNull = new LeaderboardPlayer(_nullRank, _nullName, _nullScore);
+        _leaderboardPlayerNull = new LeaderboardPlayer(NullRank, NullName, NullScore);
     }
 
     private void OnDisable()

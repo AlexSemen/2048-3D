@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class LimitingData
 {
-    private List<int> _limitingMovementsValues = new List<int>();
+    private readonly List<int> _limitingMovementsValues = new List<int>();
 
     public bool IsLimitMove { get; private set; }
     public IReadOnlyList<int> LimitingMovementsValues => _limitingMovementsValues;

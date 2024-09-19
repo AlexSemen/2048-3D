@@ -3,8 +3,9 @@ using DG.Tweening;
 
 public class AnimationBlockMove: MonoBehaviour
 {
-    private float _time = 0.05f;
-    private float _offset = 1;
+    private readonly float _time = 0.05f;
+    private readonly float _offset = 1;
+
     private float _offsetX;
     private float _offsetY;
 

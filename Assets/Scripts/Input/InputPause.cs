@@ -9,7 +9,8 @@ public class InputPause : MonoBehaviour
     [SerializeField] private AnimationFaceMove _animationFaceMove;
     [SerializeField] private List<GameObject> _panelBlockingInput = new List<GameObject>();
 
-    private float _delayInput = 0.01f;
+    private readonly float _delayInput = 0.01f;
+
     private float _currentDelayInput = 0;
     private bool _isCanMove = true;
 

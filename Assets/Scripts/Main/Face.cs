@@ -9,9 +9,10 @@ public class Face
     private const int IndexRearFaceCub = 2;
     private const int IndexLeftFaceCub = 3;
 
+    private readonly TurnFace _turnFace = new TurnFace();
+
     private const int _ñellEdge = 4;
     private Cell[,] _cells;
-    private TurnFace _turnFace = new TurnFace();
 
     public int CellEdge => _ñellEdge;
 

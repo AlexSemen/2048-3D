@@ -13,8 +13,9 @@ public class ViewFaceGenerator : MonoBehaviour
     private const float PositionLineZ = 15;
     private const float PositionCubZ = 1.9f;
     
+    private readonly List<ViewFace> _viewFaces = new List<ViewFace>();
+
     private ViewCellGenerator _viewCellGenerator;
-    private List<ViewFace> _viewFaces = new List<ViewFace>();
     private Transform _transform;
     private Transform _spawnPoint;
 

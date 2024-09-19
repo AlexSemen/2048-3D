@@ -82,13 +82,11 @@ public class ViewFaceController : MonoBehaviour
     {
         _activeViewFace.SetFace(faces[IndexActivFace]);
 
-
         _rightViewFace?.SetFace(faces[IndexRightFace]);
         _leftViewFace?.SetFace(faces[faces.Count - 1]);
 
         _movingRightViewFace?.SetFace(faces[IndexMovingRightFace]);
         _movingLeftViewFace?.SetFace(faces[faces.Count - 2]);
-
 
         if (upFace != null && downFace != null)
         {
@@ -112,7 +110,7 @@ public class ViewFaceController : MonoBehaviour
         _movingLeftViewFace?.DisplayCell();
 
         _limitingMovements.UpdateCurrentCanMoveText();
-        _limitingMovements.SetActiveLimitHalpPanel(false);
+        _limitingMovements.LimitHalpPanel.SetActive(false);
     }
 
     private void Clear()

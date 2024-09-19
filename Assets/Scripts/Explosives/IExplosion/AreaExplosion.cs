@@ -5,6 +5,8 @@ public class AreaExplosion : IExplosion
 {
     private const int _distance = 1;
     
+    private readonly List<Cell> _listTargetCell = new List<Cell>();
+    
     private Cell _targetCell;
     private bool _isCellOfFace;
     private int _targetX;
@@ -13,7 +15,6 @@ public class AreaExplosion : IExplosion
     private int _maxTargetX;
     private int _minTargetY;
     private int _maxTargetY;
-    private List<Cell> _listTargetCell = new List<Cell>();
 
     public List<Cell> GetCellTarget(Cell cell, FaceController faceController)
     {

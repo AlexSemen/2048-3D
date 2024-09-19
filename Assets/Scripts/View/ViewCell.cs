@@ -7,13 +7,14 @@ public class ViewCell : MonoBehaviour
     [SerializeField] private TMP_Text _text;
     [SerializeField] private Transform _transformViewBlock;
 
+    private readonly float _timeBlowUp = 0.08f;
+
     private CellViewConfigProvider _cellViewConfigProvider;
     private Renderer _rendererViewBlock;
     private Renderer _renderer;
     private Cell _cell;
     private Vector3 _defaultPosition;
     private WaitForSeconds _waitForSecondsBlowUp; 
-    private float _timeBlowUp = 0.08f;
 
     public Cell Cell => _cell;
     public Transform TransformViewBlock => _transformViewBlock;

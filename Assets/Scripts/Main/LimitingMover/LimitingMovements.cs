@@ -10,11 +10,13 @@ public class LimitingMovements : MonoBehaviour
 
     private const int _maxLimitMove = 3;
 
+    private readonly LimitingData _limitingData = new LimitingData();
+    private readonly Dictionary<Face, int> _faceMoves = new Dictionary<Face, int>();
+
     private bool _isLimitMove = false;
-    private LimitingData _limitingData = new LimitingData();
     private ViewLimitingMovements _viewLimitingMovements;
-    private Dictionary<Face, int> _faceMoves = new Dictionary<Face, int>();
-    
+
+    public GameObject LimitHalpPanel => _limitHalpPanel;
 
     private void Awake()
     {
@@ -72,7 +74,7 @@ public class LimitingMovements : MonoBehaviour
         else
         {
             _viewLimitingMovements.StartAnimation();
-            SetActiveLimitHalpPanel(true);
+            LimitHalpPanel.SetActive(true);
             return false;
         }
     }
@@ -141,11 +143,6 @@ public class LimitingMovements : MonoBehaviour
     public void TurnOffView()
     {
         _viewLimitingMovements.SetActivObject(false);
-    }
-
-    public void SetActiveLimitHalpPanel(bool value)
-    {
-        _limitHalpPanel.gameObject.SetActive(value);
     }
 
     private void TryAddCanMove(Face face)

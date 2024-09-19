@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class FaceData
 {
-    private List<int> _blockValues = new List<int>();
+    private readonly List<int> _blockValues = new List<int>();
 
     public bool IsFace { get; private set; }
     public ShapeType ShapeType { get; private set; }
@@ -21,7 +21,6 @@ public class FaceData
         {
             IsFace = true;
         }
-
 
         ShapeType = faceController.ShapeType;
 

@@ -19,7 +19,7 @@ public class Orientation : MonoBehaviour
 
     private void SetValue(bool vertical)
     {
-        _vertical.gameObject.SetActive(vertical);
-        _horizon.gameObject.SetActive(!vertical);
+        _vertical.SetActive(vertical);
+        _horizon.SetActive(!vertical);
     }
 }

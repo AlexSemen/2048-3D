@@ -17,13 +17,14 @@ public class SavingLoading : MonoBehaviour
     
     private const float _attemptLoadDelay = 0.25f;
 
+    private readonly GameData _saveData = new GameData();
+
     private float _currentLoadTime;
     private int _indexSave;
     private string _jsonString;
     private bool _isNeedSave = false;
     private bool _isNeedLoad = false;
-    private GameData _saveData = new GameData();
-    private GameData _loadData = new GameData();
+    private GameData _loadData;
     private Coroutine _loadCoroutine;
     private WaitForSecondsRealtime _waitForSecondsRealtime;
 

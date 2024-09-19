@@ -13,9 +13,10 @@ public class Audio : MonoBehaviour
 
     private const string Group = "Value";
 
+    private readonly float _turnedOn = 0;
+    private readonly float _turnedOff = -80;
+
     private bool _isTurnedOn = true;
-    private float _turnedOn = 0;
-    private float _turnedOff = -80;
 
     public bool IsTurnedOn => _isTurnedOn;
 

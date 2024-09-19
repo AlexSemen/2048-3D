@@ -9,11 +9,12 @@ public class YandexSetGet : MonoBehaviour
 
     public event Action<int> ToApplyYandex;
 
-    private const float _timeBetween = 5.1f;
+    private const float TimeBetween = 5.1f;
+    private const int NullIndex = 0;
+
     private float _delay = -1;
     private int _indexs = 0;
     private int _currentIndex = 0;
-    private int _nullIndex = 0;
     private bool _isNeedLoad = true;
 
     private void Update()
@@ -27,7 +28,7 @@ public class YandexSetGet : MonoBehaviour
         {
             if (_isNeedLoad)
             {
-                _savingLoading.Load(_timeBetween);
+                _savingLoading.Load(TimeBetween);
                 _isNeedLoad = false;
             }
             else
@@ -36,11 +37,11 @@ public class YandexSetGet : MonoBehaviour
 
                 if (_currentIndex >= _indexs)
                 {
-                    _currentIndex = _nullIndex;
+                    _currentIndex = NullIndex;
                 }
             }
 
-            _delay = _timeBetween;
+            _delay = TimeBetween;
         }
     }
 
@@ -53,6 +54,4 @@ public class YandexSetGet : MonoBehaviour
     {
         _isNeedLoad = true;
     }
-
-
 }

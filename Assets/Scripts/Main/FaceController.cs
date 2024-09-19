@@ -9,8 +9,9 @@ public class FaceController : MonoBehaviour
     [SerializeField] private SavingLoading _savingLoading;
     [SerializeField] private AnimationFaceMove _animationFaceMove;
 
-    private FaceData _faceData = new FaceData();
-    private FaceMover _faceMover = new FaceMover();
+    private readonly FaceData _faceData = new FaceData();
+    private readonly FaceMover _faceMover = new FaceMover();
+    
     private ShapeType _shapeType;
     private List<Face> _faces;
     private Face _upFace;
@@ -96,7 +97,6 @@ public class FaceController : MonoBehaviour
                 _animationFaceMove.MoveLeftLine();
             }
         }
-
     }
 
     public void MoveRight(bool isAnimation = true)

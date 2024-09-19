@@ -15,7 +15,6 @@ public class ViewDestructionBlocks : MonoBehaviour
     [SerializeField] private ExplosionObject _bullet;
     [SerializeField] private ExplosionObject _bomb;
 
-
     private void OnEnable()
     {
         _player.ChangedCoins += CheckCanBuyExplosives;
