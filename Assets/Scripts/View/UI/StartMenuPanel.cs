@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StartMenuPanel : MonoBehaviour
 {
-    [SerializeField] private StarGame _starGame;
+    [SerializeField] private StartGame _starGame;
     [SerializeField] private GameObject _newGamePanel;
     [SerializeField] private FaceController _faceController;
     [SerializeField] private ViewVerticalButtons _viewVerticalButtons;
@@ -73,7 +73,7 @@ public class StartMenuPanel : MonoBehaviour
 
     public void StartNewGame()
     {
-        _starGame.StartGame(_shapeType, _isLimit);
+        _starGame.NewGame(_shapeType, _isLimit);
         gameObject.SetActive(false);
     }
 

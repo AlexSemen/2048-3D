@@ -5,7 +5,7 @@ public class InputPause : MonoBehaviour
 {
     [SerializeField] private DestructionBlocks _destructionBlocks;
     [SerializeField] private BlockMover _blockMover;
-    [SerializeField] private MouseRotationCub _mouseRotationCub;
+    [SerializeField] private RotationCub _mouseRotationCub;
     [SerializeField] private AnimationFaceMove _animationFaceMove;
     [SerializeField] private List<GameObject> _panelBlockingInput = new List<GameObject>();
 

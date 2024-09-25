@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StarGame : MonoBehaviour
+public class StartGame : MonoBehaviour
 {
     [SerializeField] private ViewButtonMoveFace _viewButtonMove;
     [SerializeField] private FaceController _faceController;
@@ -14,7 +14,7 @@ public class StarGame : MonoBehaviour
     [SerializeField] private Button _rotationCubButtonVertical;
     [SerializeField] private GameObject _helpHint;
 
-    public void StartGame(ShapeType shapeType, bool isLimitMove = false, int startPoints = 0, List<int> _blockValues = null)
+    public void NewGame(ShapeType shapeType, bool isLimitMove = false, int startPoints = 0, List<int> _blockValues = null)
     {
         if (shapeType == ShapeType.Classic)
             isLimitMove = false;

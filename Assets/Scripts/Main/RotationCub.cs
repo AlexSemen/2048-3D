@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MouseRotationCub : MonoBehaviour
+public class RotationCub : MonoBehaviour
 {
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private ViewCamera _viewCamera;
@@ -10,9 +10,9 @@ public class MouseRotationCub : MonoBehaviour
     [SerializeField] private GameObject _noRotationCubButtons;
     [SerializeField] private GameObject _rotationCubHalp;
 
-    private const float  sensitivity = 1.5f;
-    private const float _maxTimeOneClick = 0.5f;
-    private const float _raycastDistance = 20;
+    private const float Sensitivity = 1.5f;
+    private const float MaxTimeOneClick = 0.5f;
+    private const float RaycastDistance = 20;
 
     private float _timeDownClick;
     private RaycastHit _hit;
@@ -33,8 +33,8 @@ public class MouseRotationCub : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            float rotationX = Input.GetAxis("Mouse X") * sensitivity;
-            float rotationY = Input.GetAxis("Mouse Y") * sensitivity;
+            float rotationX = Input.GetAxis("Mouse X") * Sensitivity;
+            float rotationY = Input.GetAxis("Mouse Y") * Sensitivity;
 
             transform.Rotate(Vector3.up, -rotationX, Space.World);
             transform.Rotate(Vector3.right, rotationY, Space.World);
@@ -44,11 +44,11 @@ public class MouseRotationCub : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if(_timeDownClick <= _maxTimeOneClick)
+            if(_timeDownClick <= MaxTimeOneClick)
             {
                 _myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(_myRay, out _hit, _raycastDistance, _layerMask))
+                if (Physics.Raycast(_myRay, out _hit, RaycastDistance, _layerMask))
                 {
 
                     if (_hit.collider.TryGetComponent<ViewFace>(out ViewFace viewFace))

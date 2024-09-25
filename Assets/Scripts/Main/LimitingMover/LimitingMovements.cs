@@ -8,7 +8,7 @@ public class LimitingMovements : MonoBehaviour
     [SerializeField] private FaceController _faceController;
     [SerializeField] private GameObject _limitHalpPanel;
 
-    private const int _maxLimitMove = 3;
+    private const int MaxLimitMove = 3;
 
     private readonly LimitingData _limitingData = new LimitingData();
     private readonly Dictionary<Face, int> _faceMoves = new Dictionary<Face, int>();
@@ -32,13 +32,13 @@ public class LimitingMovements : MonoBehaviour
         {
             foreach (Face face in _faceController.Faces)
             {
-                _faceMoves.Add(face, _maxLimitMove);
+                _faceMoves.Add(face, MaxLimitMove);
             }
 
             if (_faceController.ShapeType == ShapeType.Cub)
             {
-                _faceMoves.Add(_faceController.UpFace, _maxLimitMove);
-                _faceMoves.Add(_faceController.DownFace, _maxLimitMove);
+                _faceMoves.Add(_faceController.UpFace, MaxLimitMove);
+                _faceMoves.Add(_faceController.DownFace, MaxLimitMove);
             }
         }
         else
@@ -147,7 +147,7 @@ public class LimitingMovements : MonoBehaviour
 
     private void TryAddCanMove(Face face)
     {
-        if (_faceMoves[face] < _maxLimitMove)
+        if (_faceMoves[face] < MaxLimitMove)
         {
             _faceMoves[face]++;
         }

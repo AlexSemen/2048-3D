@@ -37,6 +37,7 @@ public class AnimationArrowMove : MonoBehaviour
             _currentTime = _time;
         }
 
-        _transformMove.position = new Vector3(_transformMove.position.x + _offsetX*Time.deltaTime, _transformMove.position.y + _offsetY * Time.deltaTime, _transformMove.position.z);
+        _transformMove.position = new Vector3(_transformMove.position.x + _offsetX*Time.deltaTime, _transformMove.position.y 
+            + _offsetY * Time.deltaTime, _transformMove.position.z);
     }
 }

@@ -7,7 +7,7 @@ public class ViewLeaderboard : MonoBehaviour
     [SerializeField] private Transform _container;
     [SerializeField] private LeaderboardElement _leaderboardElementPrefab;
     [SerializeField] private LeaderboardElement _leaderboardElementPersonal;
-    [SerializeField] private int quantityPlayersShown = 9;
+    [SerializeField] private int _quantityPlayersShown = 9;
 
     public event Action Disable;
 
@@ -33,7 +33,7 @@ public class ViewLeaderboard : MonoBehaviour
     {
         ClearLeaderboard();
 
-        for (int i = 0; i < quantityPlayersShown; i++)
+        for (int i = 0; i < _quantityPlayersShown; i++)
         {
             LeaderboardElement leaderboardElementInstance = Instantiate(_leaderboardElementPrefab, _container);
 

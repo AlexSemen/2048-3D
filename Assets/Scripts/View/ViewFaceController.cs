@@ -29,7 +29,7 @@ public class ViewFaceController : MonoBehaviour
     private ViewFace _rearViewFace;
     private ViewFace _upViewFace;
     private ViewFace _downViewFace;
-    private List<ViewFace> viewFaces;
+    private List<ViewFace> _viewFaces;
 
     public ViewFace ActiveViewFace => _activeViewFace;
 
@@ -45,35 +45,35 @@ public class ViewFaceController : MonoBehaviour
         switch (shapeType)
         {
             case ShapeType.Classic:
-                viewFaces = _generatorViewFace.CreateLine(true);
+                _viewFaces = _generatorViewFace.CreateLine(true);
                 break;
             case ShapeType.Line:
-                viewFaces = _generatorViewFace.CreateLine();
+                _viewFaces = _generatorViewFace.CreateLine();
                 break;
             case ShapeType.Cub:
-                viewFaces = _generatorViewFace.CreateCub();
+                _viewFaces = _generatorViewFace.CreateCub();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
 
-        _activeViewFace = viewFaces[IndexActivViewFace];
+        _activeViewFace = _viewFaces[IndexActivViewFace];
 
         if (shapeType != ShapeType.Classic)
         {
-            _rightViewFace = viewFaces[IndexRightViewFace];
-            _leftViewFace = viewFaces[IndexLeftViewFace];
+            _rightViewFace = _viewFaces[IndexRightViewFace];
+            _leftViewFace = _viewFaces[IndexLeftViewFace];
 
             if (shapeType == ShapeType.Cub)
             {
-                _rearViewFace = viewFaces[IndexRearViewFace];
-                _upViewFace = viewFaces[IndexUpViewFace];
-                _downViewFace = viewFaces[IndexDownViewFace];
+                _rearViewFace = _viewFaces[IndexRearViewFace];
+                _upViewFace = _viewFaces[IndexUpViewFace];
+                _downViewFace = _viewFaces[IndexDownViewFace];
             }
             else
             {
-                _movingRightViewFace = viewFaces[IndexMovingRightViewFace];
-                _movingLeftViewFace = viewFaces[IndexMovingLeftViewFace];
+                _movingRightViewFace = _viewFaces[IndexMovingRightViewFace];
+                _movingLeftViewFace = _viewFaces[IndexMovingLeftViewFace];
             }
         }
     }

@@ -5,5 +5,6 @@ using UnityEngine;
 public class AddCoinsDatasList : ScriptableObject
 {
     [SerializeField] private List<AddCoinsData> _inAddDatas;
+
     public IReadOnlyList<AddCoinsData> InAddDatas => _inAddDatas;
 }

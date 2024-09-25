@@ -10,7 +10,7 @@ public class SavingLoading : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private LimitingMovements _limitingMovements;
     [SerializeField] private GameObject _panelLoadFace;
-    [SerializeField] private StarGame _settingsStarGame;
+    [SerializeField] private StartGame _settingsStarGame;
     [SerializeField] private Audio _audio;
     [SerializeField] private StartMenuPanel _startMenuPanel;
     [SerializeField] private YandexSetGet _yandexSetGet;
@@ -66,7 +66,7 @@ public class SavingLoading : MonoBehaviour
 
     public void LoadFaces()
     {
-        _settingsStarGame.StartGame(_loadData.ShapeType, _loadData.IsLimitMove, _loadData.Points, _loadData.BlockValues);
+        _settingsStarGame.NewGame(_loadData.ShapeType, _loadData.IsLimitMove, _loadData.Points, _loadData.BlockValues);
         _startMenuPanel.UpdateViewButtons();
     }
 

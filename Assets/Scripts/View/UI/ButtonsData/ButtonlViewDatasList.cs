@@ -5,5 +5,6 @@ using UnityEngine;
 public class ButtonlViewDatasList : ScriptableObject
 {
     [SerializeField] private List<ButtonViewData> _buttons;
+
     public IReadOnlyList<ButtonViewData> Buttons => _buttons;
 }
