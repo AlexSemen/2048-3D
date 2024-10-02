@@ -14,5 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 2
   _prise: 5
-  _noActivSprite: {fileID: 21300000, guid: 03ff90960314e3448817039cbdd9d055, type: 3}
-  _activSprite: {fileID: 21300000, guid: e097a4dfcda366a439352734d54973a9, type: 3}

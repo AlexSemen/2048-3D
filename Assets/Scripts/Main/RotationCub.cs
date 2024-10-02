@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RotationCub : MonoBehaviour
 {
@@ -7,8 +8,8 @@ public class RotationCub : MonoBehaviour
     [SerializeField] private FaceController _faceController;
     [SerializeField] private LimitingMovements _limitingMovements;
     [SerializeField] private DestructionBlocks _destructionBlocks;
-    [SerializeField] private GameObject _noRotationCubButtons;
-    [SerializeField] private GameObject _rotationCubHalp;
+    [SerializeField] private Orientation _noRotationCubButtons;
+    [SerializeField] private Orientation _rotationCubHalp;
 
     private const float Sensitivity = 1.5f;
     private const float MaxTimeOneClick = 0.5f;
@@ -68,8 +69,8 @@ public class RotationCub : MonoBehaviour
         _destructionBlocks.Clear();
         _faceController.UpdateViewFaceController();
         _limitingMovements.TurnOffView();
-        _noRotationCubButtons.SetActive(true);
-        _rotationCubHalp.SetActive(true);
+        _noRotationCubButtons.gameObject.SetActive(true);
+        _rotationCubHalp.gameObject.SetActive(true);
     }
 
     public void TurnOff()
@@ -78,7 +79,7 @@ public class RotationCub : MonoBehaviour
         transform.rotation = Quaternion.identity;
         _viewCamera.SetMouseRotationCub(false);
         _limitingMovements.TurnOnView();
-        _noRotationCubButtons.SetActive(false);
-        _rotationCubHalp.SetActive(false);
+        _noRotationCubButtons.gameObject.SetActive(false);
+        _rotationCubHalp.gameObject.SetActive(false);
     }
 }

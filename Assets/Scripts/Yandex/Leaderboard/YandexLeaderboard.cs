@@ -8,7 +8,7 @@ public class YandexLeaderboard : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private ViewLeaderboard _viewLeaderboard;
     [SerializeField] private ViewButtons _viewButtons;
-    [SerializeField] private GameObject _loadPanel;
+    [SerializeField] private PanelObject _loadPanel;
     [SerializeField] private CheckAuthorization _checkAuthorization;
     [SerializeField] private YandexSetGet _yandexSetGet;
 

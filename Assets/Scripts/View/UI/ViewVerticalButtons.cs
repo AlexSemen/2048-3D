@@ -5,8 +5,8 @@ public class ViewVerticalButtons : MonoBehaviour
 {
     [SerializeField] private DestructionBlocks _destructionBlocks;  
     [SerializeField] private FaceController _faceController;  
-    [SerializeField] private GameObject _move;  
-    [SerializeField] private GameObject _activities;
+    [SerializeField] private PanelObject _move;  
+    [SerializeField] private PanelObject _activities;
     [SerializeField] private Button _switchingMove;
     [SerializeField] private Button _switchingActivities;
 
@@ -19,15 +19,15 @@ public class ViewVerticalButtons : MonoBehaviour
     {
         if(_faceController.ShapeType == ShapeType.Classic)
         {
-            _move.SetActive(false);
-            _activities.SetActive(true);
+            _move.gameObject.SetActive(false);
+            _activities.gameObject.SetActive(true);
             _switchingMove.interactable = false;
             _switchingActivities.interactable = false;
         }
         else
         {
-            _move.SetActive(!_destructionBlocks.IsWork);
-            _activities.SetActive(_destructionBlocks.IsWork);
+            _move.gameObject.SetActive(!_destructionBlocks.IsWork);
+            _activities.gameObject.SetActive(_destructionBlocks.IsWork);
             _switchingMove.interactable = true;
             _switchingActivities.interactable = true;
         }

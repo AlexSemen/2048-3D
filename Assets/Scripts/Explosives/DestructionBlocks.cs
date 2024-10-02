@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DestructionBlocks : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class DestructionBlocks : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private GameObject _loadFacePanel;
+    [SerializeField] private Image _loadFacePanel;
 
     [Header("ViewDestructionBlocks")]
     [SerializeField] private ViewDestructionBlocks _viewDestructionBlocksHorizon;
@@ -32,10 +33,7 @@ public class DestructionBlocks : MonoBehaviour
 
     private void Update()
     {
-        if(_isWork == false || _loadFacePanel.activeSelf)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && _isWork && _loadFacePanel.gameObject.activeSelf == false)
         {
             _myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 

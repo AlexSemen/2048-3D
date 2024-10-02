@@ -31,31 +31,36 @@ public class AnimationFaceMove : MonoBehaviour
 
     public void MoveLeftLine()
     {
-        _tween = _controller.transform.DORotate(new Vector3(0, _moveLineRotate, 0), _time);
+        Play(0, _moveLineRotate);
     }
 
     public void MoveRightLine()
     {
-        _tween = _controller.transform.DORotate(new Vector3(0, -_moveLineRotate, 0), _time);
+        Play(0, -_moveLineRotate);
     }
 
     public void MoveLeftCub()
     {
-        _tween = _controller.transform.DORotate(new Vector3(0, _moveCubRotate, 0), _time);
+        Play(0, _moveCubRotate);
     }
 
     public void MoveRightCub()
     {
-        _tween = _controller.transform.DORotate(new Vector3(0, -_moveCubRotate, 0), _time);
+        Play(0, -_moveCubRotate);
     }
 
     public void MoveUpCub()
     {
-        _tween = _controller.transform.DORotate(new Vector3(_moveCubRotate, 0, 0), _time);
+        Play(_moveCubRotate, 0);
     }
 
     public void MoveDownCub()
     {
-        _tween = _controller.transform.DORotate(new Vector3(-_moveCubRotate, 0, 0), _time);
+        Play(-_moveCubRotate, 0);
+    }
+
+    private void Play(float x, float y)
+    {
+        _tween = _controller.transform.DORotate(new Vector3(x, y, 0), _time);
     }
 }

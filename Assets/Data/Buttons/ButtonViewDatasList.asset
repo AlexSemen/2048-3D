@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b302738fc6922a4386916a0c06074a1, type: 3}
   m_Name: ButtonViewDatasList
   m_EditorClassIdentifier: 
-  _buttons:
+  _list:
   - _type: 0
     _sprite1: {fileID: 21300000, guid: 927b4d7e6881b5049b46c40108eb8832, type: 3}
     _sprite2: {fileID: 21300000, guid: 760da8797ba4c0445a450eaec8775343, type: 3}

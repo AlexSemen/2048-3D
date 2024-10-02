@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Orientation : MonoBehaviour
 {
-    [SerializeField] private GameObject _vertical;
-    [SerializeField] private GameObject _horizon;
+    [SerializeField] private PanelObject _vertical;
+    [SerializeField] private PanelObject _horizon;
     [SerializeField] private OrientationChecker _orientationChecker;
 
     private void OnEnable()
@@ -19,7 +19,7 @@ public class Orientation : MonoBehaviour
 
     private void SetValue(bool vertical)
     {
-        _vertical.SetActive(vertical);
-        _horizon.SetActive(!vertical);
+        _vertical.gameObject.SetActive(vertical);
+        _horizon.gameObject.SetActive(!vertical);
     }
 }

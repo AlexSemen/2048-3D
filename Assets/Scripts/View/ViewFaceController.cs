@@ -110,7 +110,7 @@ public class ViewFaceController : MonoBehaviour
         _movingLeftViewFace?.DisplayCell();
 
         _limitingMovements.UpdateCurrentCanMoveText();
-        _limitingMovements.LimitHalpPanel.SetActive(false);
+        _limitingMovements.LimitHalpPanel.gameObject.SetActive(false);
     }
 
     private void Clear()

@@ -18,8 +18,8 @@ public class CheckAuthorization : MonoBehaviour
         if (PlayerAccount.IsAuthorized == false)
         {
             PlayerAccount.StartAuthorizationPolling(1500);
-            ChangedAuthorized.Invoke(false);
-            ChangedHasPersonalProfileDataPermission.Invoke(false);
+            ChangedAuthorized?.Invoke(false);
+            ChangedHasPersonalProfileDataPermission?.Invoke(false);
         }
 
         bool _isCheckAuthorized = true;
@@ -81,12 +81,12 @@ public class CheckAuthorization : MonoBehaviour
             _yandexSetGet.Load();
         }
         
-        ChangedAuthorized.Invoke(isAuthorized);
+        ChangedAuthorized?.Invoke(isAuthorized);
     }
 
     private void SetHasPersonalProfileDataPermission(bool isHasPersonalProfileDataPermission)
     {
         _isHasPersonalProfileDataPermission = isHasPersonalProfileDataPermission;
-        ChangedHasPersonalProfileDataPermission.Invoke(isHasPersonalProfileDataPermission);
+        ChangedHasPersonalProfileDataPermission?.Invoke(isHasPersonalProfileDataPermission);
     }
 }

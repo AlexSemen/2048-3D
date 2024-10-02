@@ -13,15 +13,14 @@ public class Player : MonoBehaviour
     private readonly PlayerData _playerData = new PlayerData();
 
     private int _pointsForWhichCoinsWereReceived = 0;
-    private int _points;
+    private int _points = 0;
     private int _coins = 0;
 
-    public int Points => _points;
     public int Coins => _coins;
 
     private void Start()
     {
-        ChangedCoins.Invoke();
+        ChangedCoins?.Invoke();
     }
 
     public void AddPoints(CellType cellType)

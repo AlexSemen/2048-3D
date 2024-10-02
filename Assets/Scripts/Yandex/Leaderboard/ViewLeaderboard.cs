@@ -9,8 +9,6 @@ public class ViewLeaderboard : MonoBehaviour
     [SerializeField] private LeaderboardElement _leaderboardElementPersonal;
     [SerializeField] private int _quantityPlayersShown = 9;
 
-    public event Action Disable;
-
     private const string NullRank = "-";
     private const string NullName = "-----";
     private const string NullScore = "---";
@@ -22,11 +20,6 @@ public class ViewLeaderboard : MonoBehaviour
     private void Awake()
     {
         _leaderboardPlayerNull = new LeaderboardPlayer(NullRank, NullName, NullScore);
-    }
-
-    private void OnDisable()
-    {
-        Disable?.Invoke();
     }
 
     public void ConstructLeaderboard(List<LeaderboardPlayer> leaderboardPlayers, LeaderboardPlayer leaderboardPlayerPersonal)

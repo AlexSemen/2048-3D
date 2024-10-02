@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PointsDatasList", menuName = "Data/PointsDatasList")]
-public class PointsCellDatasList : ScriptableObject
+public class PointsCellDatasList : DatasList<PointsData>
 {
-    [SerializeField] private List<PointsData> _cells;
-
-    public IReadOnlyList<PointsData> Cells => _cells;
+    
 }

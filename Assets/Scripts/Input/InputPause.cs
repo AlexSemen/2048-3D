@@ -5,7 +5,7 @@ public class InputPause : MonoBehaviour
 {
     [SerializeField] private DestructionBlocks _destructionBlocks;
     [SerializeField] private BlockMover _blockMover;
-    [SerializeField] private RotationCub _mouseRotationCub;
+    [SerializeField] private RotationCub _rotationCub;
     [SerializeField] private AnimationFaceMove _animationFaceMove;
     [SerializeField] private List<GameObject> _panelBlockingInput = new List<GameObject>();
 
@@ -56,6 +56,6 @@ public class InputPause : MonoBehaviour
         }
 
         return _destructionBlocks.IsWork == false && _blockMover.IsMove == false 
-            && _mouseRotationCub.IsWork == false && _animationFaceMove.IsMove == false;
+            && _rotationCub.IsWork == false && _animationFaceMove.IsMove == false;
     }
 }

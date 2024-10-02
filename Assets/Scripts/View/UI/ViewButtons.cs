@@ -9,7 +9,7 @@ public class ViewButtons : MonoBehaviour
     [SerializeField] private Button _lineButton;
     [SerializeField] private Button _cubButton;
     [SerializeField] private Button _limitButton;
-    [SerializeField] private ButtonlViewDatasList _buttonlViewDatasList;
+    [SerializeField] private ButtonViewDatasList _buttonlViewDatasList;
     [SerializeField] private Button _playButton;
     [SerializeField] private Image _continueImage;
 
@@ -17,7 +17,7 @@ public class ViewButtons : MonoBehaviour
 
     public void Init()
     {
-        foreach (ButtonViewData buttonViewData in _buttonlViewDatasList.Buttons)
+        foreach (ButtonViewData buttonViewData in _buttonlViewDatasList.List)
         {
             _buttonByCellType.Add(buttonViewData.Type, buttonViewData);
         }
@@ -77,6 +77,7 @@ public class ViewButtons : MonoBehaviour
         if (_buttonByCellType.ContainsKey(buttonType))
             return _buttonByCellType[buttonType];
 
-        throw new Exception($"Color for cellType {buttonType} does not exist!");
+        Debug.Log(buttonType.ToString());
+        throw new Exception($"Sprite for cellType {buttonType} does not exist!");
     }
 }

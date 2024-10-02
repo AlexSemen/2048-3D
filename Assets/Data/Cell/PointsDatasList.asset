@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac1291e53bee5345b745c292a7979ca, type: 3}
   m_Name: PointsDatasList
   m_EditorClassIdentifier: 
-  _cells:
+  _list:
   - _type: 4
     _points: 1
   - _type: 8

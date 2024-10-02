@@ -6,7 +6,7 @@ using UnityEngine;
 public class LimitingMovements : MonoBehaviour
 {
     [SerializeField] private FaceController _faceController;
-    [SerializeField] private GameObject _limitHalpPanel;
+    [SerializeField] private Orientation _limitHalpPanel;
 
     private const int MaxLimitMove = 3;
 
@@ -16,7 +16,7 @@ public class LimitingMovements : MonoBehaviour
     private bool _isLimitMove = false;
     private ViewLimitingMovements _viewLimitingMovements;
 
-    public GameObject LimitHalpPanel => _limitHalpPanel;
+    public Orientation LimitHalpPanel => _limitHalpPanel;
 
     private void Awake()
     {
@@ -74,7 +74,7 @@ public class LimitingMovements : MonoBehaviour
         else
         {
             _viewLimitingMovements.StartAnimation();
-            LimitHalpPanel.SetActive(true);
+            LimitHalpPanel.gameObject.SetActive(true);
             return false;
         }
     }

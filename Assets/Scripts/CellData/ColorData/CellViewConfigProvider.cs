@@ -12,7 +12,7 @@ public class CellViewConfigProvider : MonoBehaviour
     {
         _colorByCellType = new Dictionary<CellType, Color>();
 
-        foreach (CellViewData cellViewData in _cellViewDatasList.Cells)
+        foreach (CellViewData cellViewData in _cellViewDatasList.List)
         {
             _colorByCellType.Add(cellViewData.Type, cellViewData.Color);
         }

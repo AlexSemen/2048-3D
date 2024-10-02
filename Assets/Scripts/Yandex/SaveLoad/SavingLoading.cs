@@ -123,6 +123,7 @@ public class SavingLoading : MonoBehaviour
             if (_faceController.Faces == null || _faceController.Faces.Count == 0)
             {
                 LoadFaces();
+                LoadFaces();
             }
             else
             {

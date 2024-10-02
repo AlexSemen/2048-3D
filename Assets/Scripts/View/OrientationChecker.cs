@@ -30,13 +30,13 @@ public class OrientationChecker : MonoBehaviour
         if (_isVertical && Screen.width > Screen.height*1.4f)
         {
             _isVertical = false;
-            ChangedVertical?.Invoke(_isVertical);
         }
         
         if (!_isVertical && Screen.width <= Screen.height*1.4f)
         {
             _isVertical = true;
-            ChangedVertical?.Invoke(_isVertical);
         }
+
+        ChangedVertical?.Invoke(_isVertical);
     }
 }

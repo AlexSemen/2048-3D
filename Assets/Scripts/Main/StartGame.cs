@@ -12,7 +12,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] private Button _rotationCubButtonHorizon1;
     [SerializeField] private Button _rotationCubButtonHorizon2;
     [SerializeField] private Button _rotationCubButtonVertical;
-    [SerializeField] private GameObject _helpHint;
+    [SerializeField] private AutoPowerOff _helpHint;
 
     public void NewGame(ShapeType shapeType, bool isLimitMove = false, int startPoints = 0, List<int> _blockValues = null)
     {
@@ -36,7 +36,7 @@ public class StartGame : MonoBehaviour
 
         if(_blockValues == null)
         {
-            _helpHint.SetActive(true);
+            _helpHint.gameObject.SetActive(true);
         }
     }
 

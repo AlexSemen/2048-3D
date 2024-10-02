@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class StartMenuPanel : MonoBehaviour
 {
     [SerializeField] private StartGame _starGame;
-    [SerializeField] private GameObject _newGamePanel;
+    [SerializeField] private PanelObject _newGamePanel;
     [SerializeField] private FaceController _faceController;
     [SerializeField] private ViewVerticalButtons _viewVerticalButtons;
     [SerializeField] private ViewButtons _viewStartMenuPanelButtonsHorizon;
@@ -61,7 +62,7 @@ public class StartMenuPanel : MonoBehaviour
         {
             if (_faceController.Faces != null && _faceController.Faces.Count > 0)
             {
-                _newGamePanel.SetActive(true);
+                _newGamePanel.gameObject.SetActive(true);
             }
             else
             {

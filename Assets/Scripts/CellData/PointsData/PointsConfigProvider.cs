@@ -12,7 +12,7 @@ public class PointsConfigProvider : MonoBehaviour
     {
         _pointsByCellType = new Dictionary<CellType, int>();
 
-        foreach (PointsData pointsData in _pointsCellDatasList.Cells)
+        foreach (PointsData pointsData in _pointsCellDatasList.List)
         {
             _pointsByCellType.Add(pointsData.Type, pointsData.Points);
         }

@@ -16,7 +16,6 @@ public class ViewButtonMoveFace : MonoBehaviour
             _moveLineButtonsVertical.SetActive(false);
             _moveCubButtonsHorizon.SetActive(false);
             _moveLineButtonsHorizon.SetActive(false);
-            _viewVerticalButtons.UpdateView();
         }
         else
         {
@@ -24,7 +23,8 @@ public class ViewButtonMoveFace : MonoBehaviour
             _moveCubButtonsHorizon.SetActive(shapeType == ShapeType.Cub);
             _moveCubButtonsVertical.SetActive(shapeType == ShapeType.Cub);
             _moveLineButtonsVertical.SetActive(shapeType != ShapeType.Cub);
-            _viewVerticalButtons.UpdateView();
         }
+
+        _viewVerticalButtons.UpdateView();
     }
 }

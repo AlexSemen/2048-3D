@@ -9,7 +9,6 @@ public class GameData
     public ShapeType ShapeType;
     public List<int> BlockValues;
     public bool IsLimitMove;
-    public int MaxLimitMove;
     public List<int> LimitingMovementsValues;
     public bool IsAudio;
 
