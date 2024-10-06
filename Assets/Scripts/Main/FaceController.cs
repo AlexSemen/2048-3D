@@ -185,21 +185,34 @@ public class FaceController : MonoBehaviour
     {
         foreach (Face face in Faces)
         {
-            for (int i = 0; i < face.CellEdge; i++) 
+            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(face.CellEdge - 1)))
             {
-                for (int j = 0; j < face.CellEdge; j++)
+                if (cellValues.Count > 0)
                 {
-                    if (cellValues.Count > 0)
+                    if (cellValues[0] != 0)
                     {
-                        if (cellValues[0] != 0) 
-                        {
-                            face.GetCell(i, j).SetBlock(new Block(cellValues[0]));
-                        }
-
-                        cellValues.RemoveAt(0);
+                        face.GetCell(valueIJ.I, valueIJ.J).SetBlock(new Block(cellValues[0]));
                     }
+
+                    cellValues.RemoveAt(0);
                 }
             }
+
+            //for (int i = 0; i < face.CellEdge; i++) 
+            //{
+            //    for (int j = 0; j < face.CellEdge; j++)
+            //    {
+            //        if (cellValues.Count > 0)
+            //        {
+            //            if (cellValues[0] != 0) 
+            //            {
+            //                face.GetCell(i, j).SetBlock(new Block(cellValues[0]));
+            //            }
+            //
+            //            cellValues.RemoveAt(0);
+            //        }
+            //    }
+            //}
         }
     }
 }

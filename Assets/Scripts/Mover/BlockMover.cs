@@ -65,22 +65,37 @@ public class BlockMover : MonoBehaviour
         {
             _isWork = false;
 
-            for (int i = 0; i < _faceController.ActiveFace.CellEdge; i++)
+            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_faceController.ActiveFace.CellEdge - 1),
+                new SettingsLoop(_faceController.ActiveFace.CellEdge - 1, 1)))
             {
-                for (int j = 1; j < _faceController.ActiveFace.CellEdge; j++)
+                if (_faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J).Block != null)
                 {
-                    if (_faceController.ActiveFace.GetCell(i, j).Block != null)
-                    {
-                        _cell = _faceController.ActiveFace.GetCell(i, j);
-                        _targetCell = _faceController.ActiveFace.GetCell(i, j - 1);
+                    _cell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J);
+                    _targetCell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J - 1);
 
-                        if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
-                        {
-                            SuccessfullyMoved(j, i, MoveType.Left);
-                        }
+                    if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
+                    {
+                        SuccessfullyMoved(valueIJ.J, valueIJ.I, MoveType.Left);
                     }
                 }
             }
+
+            //for (int i = 0; i < _faceController.ActiveFace.CellEdge; i++)
+            //{
+            //    for (int j = 1; j < _faceController.ActiveFace.CellEdge; j++)
+            //    {
+            //        if (_faceController.ActiveFace.GetCell(i, j).Block != null)
+            //        {
+            //            _cell = _faceController.ActiveFace.GetCell(i, j);
+            //            _targetCell = _faceController.ActiveFace.GetCell(i, j - 1);
+            //
+            //            if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
+            //            {
+            //                SuccessfullyMoved(j, i, MoveType.Left);
+            //            }
+            //        }
+            //    }
+            //}
 
             yield return _waitForSecondsRealtime;
 
@@ -96,22 +111,37 @@ public class BlockMover : MonoBehaviour
         {
             _isWork = false;
 
-            for (int i = 0; i < _faceController.ActiveFace.CellEdge; i++)
+            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_faceController.ActiveFace.CellEdge - 1),
+                new SettingsLoop(0, _faceController.ActiveFace.CellEdge - 2, false)))
             {
-                for (int j = _faceController.ActiveFace.CellEdge - 2; j >= 0; j--)
+                if (_faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J).Block != null)
                 {
-                    if (_faceController.ActiveFace.GetCell(i, j).Block != null)
-                    {
-                        _cell = _faceController.ActiveFace.GetCell(i, j);
-                        _targetCell = _faceController.ActiveFace.GetCell(i, j + 1);
+                    _cell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J);
+                    _targetCell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J + 1);
 
-                        if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
-                        {
-                            SuccessfullyMoved(j, i, MoveType.Right);
-                        }
+                    if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
+                    {
+                        SuccessfullyMoved(valueIJ.I, valueIJ.J, MoveType.Right);
                     }
                 }
             }
+
+            //for (int i = 0; i < _faceController.ActiveFace.CellEdge; i++)
+            //{
+            //    for (int j = _faceController.ActiveFace.CellEdge - 2; j >= 0; j--)
+            //    {
+            //        if (_faceController.ActiveFace.GetCell(i, j).Block != null)
+            //        {
+            //            _cell = _faceController.ActiveFace.GetCell(i, j);
+            //            _targetCell = _faceController.ActiveFace.GetCell(i, j + 1);
+            //
+            //            if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
+            //            {
+            //                SuccessfullyMoved(j, i, MoveType.Right);
+            //            }
+            //        }
+            //    }
+            //}
 
             yield return _waitForSecondsRealtime;
 
@@ -127,22 +157,37 @@ public class BlockMover : MonoBehaviour
         {
             _isWork = false;
 
-            for (int i = 0; i < _faceController.ActiveFace.CellEdge; i++)
+            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_faceController.ActiveFace.CellEdge - 1),
+                new SettingsLoop(_faceController.ActiveFace.CellEdge - 1, 1)))
             {
-                for (int j = 1; j < _faceController.ActiveFace.CellEdge; j++)
+                if (_faceController.ActiveFace.GetCell(valueIJ.J, valueIJ.I).Block != null)
                 {
-                    if (_faceController.ActiveFace.GetCell(j, i).Block != null)
-                    {
-                        _cell = _faceController.ActiveFace.GetCell(j, i);
-                        _targetCell = _faceController.ActiveFace.GetCell(j - 1, i);
+                    _cell = _faceController.ActiveFace.GetCell(valueIJ.J, valueIJ.I);
+                    _targetCell = _faceController.ActiveFace.GetCell(valueIJ.J - 1, valueIJ.I);
 
-                        if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
-                        {
-                            SuccessfullyMoved(i, j, MoveType.Up);
-                        }
+                    if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
+                    {
+                        SuccessfullyMoved(valueIJ.I, valueIJ.J, MoveType.Up);
                     }
                 }
             }
+
+            //for (int i = 0; i < _faceController.ActiveFace.CellEdge; i++)
+            //{
+            //    for (int j = 1; j < _faceController.ActiveFace.CellEdge; j++)
+            //    {
+            //        if (_faceController.ActiveFace.GetCell(j, i).Block != null)
+            //        {
+            //            _cell = _faceController.ActiveFace.GetCell(j, i);
+            //            _targetCell = _faceController.ActiveFace.GetCell(j - 1, i);
+            //
+            //            if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
+            //            {
+            //                SuccessfullyMoved(i, j, MoveType.Up);
+            //            }
+            //        }
+            //    }
+            //}
 
             yield return _waitForSecondsRealtime;
 
@@ -158,23 +203,37 @@ public class BlockMover : MonoBehaviour
         {
             _isWork = false;
 
-            for (int j = 0; j < _faceController.ActiveFace.CellEdge; j++)
+            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_faceController.ActiveFace.CellEdge - 1),
+               new SettingsLoop(0, _faceController.ActiveFace.CellEdge - 2, false)))
             {
-                for (int i = _faceController.ActiveFace.CellEdge - 2; i >= 0; i--)
+                if (_faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J).Block != null)
                 {
-                    if (_faceController.ActiveFace.GetCell(i, j).Block != null)
+                    _cell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J);
+                    _targetCell = _faceController.ActiveFace.GetCell(valueIJ.I + 1, valueIJ.J);
+
+                    if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
                     {
-                            
-                        _cell = _faceController.ActiveFace.GetCell(i, j);
-                        _targetCell = _faceController.ActiveFace.GetCell(i + 1, j);
-            
-                        if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
-                        {
-                            SuccessfullyMoved(j, i, MoveType.Down);
-                        }
+                        SuccessfullyMoved(valueIJ.J, valueIJ.I, MoveType.Down);
                     }
                 }
             }
+
+            //for (int j = 0; j < _faceController.ActiveFace.CellEdge; j++)
+            //{
+            //    for (int i = _faceController.ActiveFace.CellEdge - 2; i >= 0; i--)
+            //    {
+            //        if (_faceController.ActiveFace.GetCell(i, j).Block != null)
+            //        {
+            //            _cell = _faceController.ActiveFace.GetCell(i, j);
+            //            _targetCell = _faceController.ActiveFace.GetCell(i + 1, j);
+            //
+            //            if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
+            //            {
+            //                SuccessfullyMoved(j, i, MoveType.Down);
+            //            }
+            //        }
+            //    }
+            //}
         
             yield return _waitForSecondsRealtime;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CellViewConfigProvider : MonoBehaviour
 {
-    [SerializeField] private CellViewDatasList _cellViewDatasList;
+    [SerializeField] private CellViewDataList _cellViewDatasList;
 
     private Dictionary<CellType, Color> _colorByCellType;
 

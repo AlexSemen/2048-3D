@@ -106,13 +106,18 @@ public class Face
 
     public void ThrowStatusBlock()
     {
-        for (int i = 0; i < CellEdge; i++)
+        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(CellEdge - 1)))
         {
-            for (int j = 0; j < CellEdge; j++)
-            {
-                _cells[i, j].ThrowStatusBlock();
-            }
+            _cells[valueIJ.I, valueIJ.J].ThrowStatusBlock();
         }
+       
+        //for (int i = 0; i < CellEdge; i++)
+        //{
+        //    for (int j = 0; j < CellEdge; j++)
+        //    {
+        //        _cells[i, j].ThrowStatusBlock();
+        //    }
+        //}
     }
 
     public void TurnRight()
@@ -132,16 +137,25 @@ public class Face
 
     private void FillEmptyCell()
     {
-        for (int i = 0; i < CellEdge; i++)
+
+        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(CellEdge - 1)))
         {
-            for (int j = 0; j < CellEdge; j++)
+            if (_cells[valueIJ.I, valueIJ.J] == null)
             {
-                if (_cells[i, j] == null)
-                {
-                    _cells[i, j] = new Cell();
-                }
+                _cells[valueIJ.I, valueIJ.J] = new Cell();
             }
         }
+
+        //for (int i = 0; i < CellEdge; i++)
+        //{
+        //    for (int j = 0; j < CellEdge; j++)
+        //    {
+        //        if (_cells[i, j] == null)
+        //        {
+        //            _cells[i, j] = new Cell();
+        //        }
+        //    }
+        //}
     }
 
     private void FillCellLeft(Face faceLeft)

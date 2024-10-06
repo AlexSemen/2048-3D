@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PointsConfigProvider : MonoBehaviour
 {
-    [SerializeField] private PointsCellDatasList _pointsCellDatasList;
+    [SerializeField] private PointsCellDataList _pointsCellDatasList;
 
     private Dictionary<CellType, int> _pointsByCellType;
 

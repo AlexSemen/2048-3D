@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ValueIJ : MonoBehaviour
+public class ValueIJ 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int _i;
+    private int _j;
 
-    // Update is called once per frame
-    void Update()
+    public int I => _i;
+    public int J => _j;
+
+    public ValueIJ(int i, int j)
     {
-        
+        _i = i;
+        _j = j;
     }
 }

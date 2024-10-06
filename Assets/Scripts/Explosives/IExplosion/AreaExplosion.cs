@@ -40,18 +40,29 @@ public class AreaExplosion : IExplosion
     {
         _isCellOfFace = false;
 
-        for (int i = 0; i < face.CellEdge; i++)
+
+        foreach(ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(face.CellEdge -1))) 
         {
-            for (int j = 0; j < face.CellEdge; j++)
+            if (face.GetCell(valueIJ.I, valueIJ.J) == _targetCell)
             {
-                if (face.GetCell(i, j) == _targetCell)
-                {
-                    _isCellOfFace = true;
-                    _targetX = j;
-                    _targetY = i;
-                }
+                _isCellOfFace = true;
+                _targetX = valueIJ.J;
+                _targetY = valueIJ.I;
             }
         }
+
+        //for (int i = 0; i < face.CellEdge; i++)
+        //{
+        //    for (int j = 0; j < face.CellEdge; j++)
+        //    {
+        //        if (face.GetCell(i, j) == _targetCell)
+        //        {
+        //            _isCellOfFace = true;
+        //            _targetX = j;
+        //            _targetY = i;
+        //        }
+        //    }
+        //}
 
         if (_isCellOfFace)
         {
@@ -60,16 +71,25 @@ public class AreaExplosion : IExplosion
             _minTargetY = (int)Mathf.Clamp(_targetY - _distance, 0, face.CellEdge - 1);
             _maxTargetY = (int)Mathf.Clamp(_targetY + _distance, 0, face.CellEdge - 1);
 
-            for (int i = _minTargetY; i <= _maxTargetY; i++)
+            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_maxTargetY-1, _minTargetY), 
+                new SettingsLoop(_maxTargetX - 1, _minTargetX)))
             {
-                for (int j = _minTargetX; j <= _maxTargetX; j++)
+                if (_listTargetCell.Contains(face.GetCell(valueIJ.I, valueIJ.J)) == false)
                 {
-                   if(_listTargetCell.Contains(face.GetCell(i, j)) == false)
-                   {
-                        _listTargetCell.Add(face.GetCell(i, j));
-                   }
+                    _listTargetCell.Add(face.GetCell(valueIJ.I, valueIJ.J));
                 }
             }
+
+            //for (int i = _minTargetY; i <= _maxTargetY; i++)
+            //{
+            //    for (int j = _minTargetX; j <= _maxTargetX; j++)
+            //    {
+            //       if(_listTargetCell.Contains(face.GetCell(i, j)) == false)
+            //       {
+            //            _listTargetCell.Add(face.GetCell(i, j));
+            //       }
+            //    }
+            //}
         }
     }
 }

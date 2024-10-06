@@ -38,19 +38,31 @@ public class FaceData
 
     private void AddBlockValues(Face face)
     {
-        for (int i = 0; i < face.CellEdge; i++)
+        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(face.CellEdge - 1)))
         {
-            for (int j = 0; j < face.CellEdge; j++)
+            if (face.GetCell(valueIJ.I, valueIJ.J).Block != null)
             {
-                if (face.GetCell(i, j).Block != null)
-                {
-                    _blockValues.Add(face.GetCell(i, j).Block.Meaning);
-                }
-                else
-                {
-                    _blockValues.Add(0);
-                }
+                _blockValues.Add(face.GetCell(valueIJ.I, valueIJ.J).Block.Meaning);
+            }
+            else
+            {
+                _blockValues.Add(0);
             }
         }
+
+        //for (int i = 0; i < face.CellEdge; i++)
+        //{
+        //    for (int j = 0; j < face.CellEdge; j++)
+        //    {
+        //        if (face.GetCell(i, j).Block != null)
+        //        {
+        //            _blockValues.Add(face.GetCell(i, j).Block.Meaning);
+        //        }
+        //        else
+        //        {
+        //            _blockValues.Add(0);
+        //        }
+        //    }
+        //}
     }
 }

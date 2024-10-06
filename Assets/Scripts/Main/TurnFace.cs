@@ -4,13 +4,19 @@ public class TurnFace
     {
         Cell[,] newArray = new Cell[cellEdge, cellEdge];
 
-        for (int i = cellEdge - 1; i >= 0; i--)
+        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(0, cellEdge - 1, false),
+            new SettingsLoop(cellEdge - 1)))
         {
-            for (int j = 0; j < cellEdge; j++)
-            {
-                newArray[j, cellEdge - (i + 1)] = cells[i, j];
-            }
+            newArray[valueIJ.J, cellEdge - (valueIJ.I + 1)] = cells[valueIJ.I, valueIJ.J];
         }
+
+        //for (int i = cellEdge - 1; i >= 0; i--)
+        //{
+        //    for (int j = 0; j < cellEdge; j++)
+        //    {
+        //        newArray[j, cellEdge - (i + 1)] = cells[i, j];
+        //    }
+        //}
 
         return newArray;
     }
@@ -19,13 +25,19 @@ public class TurnFace
     {
         Cell[,] newArray = new Cell[cellEdge, cellEdge];
 
-        for (int i = cellEdge - 1; i >= 0; i--)
+        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(0, cellEdge - 1, false),
+            new SettingsLoop(cellEdge - 1)))
         {
-            for (int j = 0; j < cellEdge; j++)
-            {
-                newArray[i, j] = cells[j, cellEdge - (i + 1)];
-            }
+            newArray[valueIJ.I, valueIJ.J] = cells[valueIJ.J, cellEdge - (valueIJ.I + 1)];
         }
+
+        //for (int i = cellEdge - 1; i >= 0; i--)
+        //{
+        //    for (int j = 0; j < cellEdge; j++)
+        //    {
+        //        newArray[i, j] = cells[j, cellEdge - (i + 1)];
+        //    }
+        //}
 
         return newArray;
     }
@@ -34,13 +46,18 @@ public class TurnFace
     {
         Cell[,] newArray = new Cell[cellEdge, cellEdge];
 
-        for (int i = 0; i < cellEdge; i++)
+        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(cellEdge - 1)))
         {
-            for (int j = 0; j < cellEdge; j++)
-            {
-                newArray[i, j] = cells[cellEdge - (i + 1), cellEdge - (j + 1)];
-            }
+            newArray[valueIJ.I, valueIJ.J] = cells[cellEdge - (valueIJ.I + 1), cellEdge - (valueIJ.J + 1)];
         }
+
+        //for (int i = 0; i < cellEdge; i++)
+        //{
+        //    for (int j = 0; j < cellEdge; j++)
+        //    {
+        //        newArray[i, j] = cells[cellEdge - (i + 1), cellEdge - (j + 1)];
+        //    }
+        //}
 
         return newArray;
     }

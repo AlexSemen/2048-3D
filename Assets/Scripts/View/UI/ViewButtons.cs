@@ -9,7 +9,7 @@ public class ViewButtons : MonoBehaviour
     [SerializeField] private Button _lineButton;
     [SerializeField] private Button _cubButton;
     [SerializeField] private Button _limitButton;
-    [SerializeField] private ButtonViewDatasList _buttonlViewDatasList;
+    [SerializeField] private ButtonViewDataList _buttonlViewDatasList;
     [SerializeField] private Button _playButton;
     [SerializeField] private Image _continueImage;
 

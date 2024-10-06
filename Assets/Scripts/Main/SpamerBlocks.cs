@@ -83,16 +83,24 @@ public class SpamerBlocks : MonoBehaviour
 
     private void AddFreeCells(Face face)
     {
-        for (int i = 0; i < face.CellEdge; i++)
+        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(face.CellEdge - 1)))
         {
-            for (int j = 0; j < face.CellEdge; j++)
+            if (_freeCells.Contains(face.GetCell(valueIJ.I, valueIJ.J)) == false && face.GetCell(valueIJ.I, valueIJ.J).Block == null)
             {
-                if (_freeCells.Contains(face.GetCell(i, j)) == false && face.GetCell(i, j).Block == null)
-                {
-                    _freeCells.Add(face.GetCell(i, j));
-                }
+                _freeCells.Add(face.GetCell(valueIJ.I, valueIJ.J));
             }
         }
+
+        //for (int i = 0; i < face.CellEdge; i++)
+        //{
+        //    for (int j = 0; j < face.CellEdge; j++)
+        //    {
+        //        if (_freeCells.Contains(face.GetCell(i, j)) == false && face.GetCell(i, j).Block == null)
+        //        {
+        //            _freeCells.Add(face.GetCell(i, j));
+        //        }
+        //    }
+        //}
     }
 
     private void RemoveFreeCells(Face face)

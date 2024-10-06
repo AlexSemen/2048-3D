@@ -25,13 +25,18 @@ public class ViewFace : MonoBehaviour
         if(_face == null) 
             return;
 
-        for (int i = 0; i < _face.CellEdge; i++)
+        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_face.CellEdge - 1)))
         {
-            for (int j = 0; j < _face.CellEdge; j++)
-            {
-                _viewCells[i, j].SetCell(_face.GetCell(i, j));
-            }
+            _viewCells[valueIJ.I, valueIJ.J].SetCell(_face.GetCell(valueIJ.I, valueIJ.J));
         }
+
+        //for (int i = 0; i < _face.CellEdge; i++)
+        //{
+        //    for (int j = 0; j < _face.CellEdge; j++)
+        //    {
+        //        _viewCells[i, j].SetCell(_face.GetCell(i, j));
+        //    }
+        //}
     }
 
     public void MoveBlock(int i, int j, MoveType moveType)
