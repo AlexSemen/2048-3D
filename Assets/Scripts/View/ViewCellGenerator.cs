@@ -1,59 +1,63 @@
+using CellData.ColorData;
 using UnityEngine;
 
-[RequireComponent(typeof(CellViewConfigProvider))]
-public class ViewCellGenerator : MonoBehaviour
+namespace View
 {
-    [SerializeField] private ViewCell _prefabViewCell;
-    
-    private const int _cellEdge = 4;
-    private const float positionOffset = 1.5f;
-
-    private CellViewConfigProvider _cellViewConfigProvider;
-    private Transform _spawnPoint;
-    private Transform _transform;
-
-    private void Awake()
+    [RequireComponent(typeof(CellViewConfigProvider))]
+    public class ViewCellGenerator : MonoBehaviour
     {
-        _cellViewConfigProvider = GetComponent<CellViewConfigProvider>();
-        _transform = transform;
-        _spawnPoint = new GameObject("SpawnPoint").transform;
-        _spawnPoint.SetParent(_transform);
-    }
+        [SerializeField] private ViewCell _prefabViewCell;
 
-    public ViewCell[,] Init(Transform transformViewFace, bool isCollider = false)
-    {
-        _spawnPoint.position = transformViewFace.position;
-        _spawnPoint.rotation = transformViewFace.rotation;
-        _spawnPoint.SetParent(transformViewFace);
+        private const int _cellEdge = 4;
+        private const float positionOffset = 1.5f;
 
-        ViewCell[,] viewCells = new ViewCell[_cellEdge, _cellEdge];
+        private CellViewConfigProvider _cellViewConfigProvider;
+        private Transform _spawnPoint;
+        private Transform _transform;
 
-        _spawnPoint.localPosition = new Vector3(-positionOffset, positionOffset, 0);
-
-        for (int i = 0; i < _cellEdge; i++)
+        private void Awake()
         {
-            for (int j = 0; j < _cellEdge; j++)
-            {
-                viewCells[i, j] = Instantiate(_prefabViewCell, _spawnPoint.position, transformViewFace.rotation);
-                viewCells[i, j].transform.SetParent(transformViewFace);
-                viewCells[i, j].Init(_cellViewConfigProvider);
-
-                _spawnPoint.localPosition += new Vector3(transformViewFace.localScale.x, 0, 0);
-            }
-
-            _spawnPoint.localPosition = new Vector3(-positionOffset, _spawnPoint.localPosition.y - transformViewFace.localScale.y, 0);
+            _cellViewConfigProvider = GetComponent<CellViewConfigProvider>();
+            _transform = transform;
+            _spawnPoint = new GameObject("SpawnPoint").transform;
+            _spawnPoint.SetParent(_transform);
         }
 
-        _spawnPoint.SetParent(_transform);
-
-        if (isCollider)
+        public ViewCell[,] Init(Transform transformViewFace, bool isCollider = false)
         {
-            foreach(ViewCell viewCell in viewCells)
-            {
-                viewCell.gameObject.AddComponent<BoxCollider>();
-            }
-        }
+            _spawnPoint.position = transformViewFace.position;
+            _spawnPoint.rotation = transformViewFace.rotation;
+            _spawnPoint.SetParent(transformViewFace);
 
-        return viewCells;
+            ViewCell[,] viewCells = new ViewCell[_cellEdge, _cellEdge];
+
+            _spawnPoint.localPosition = new Vector3(-positionOffset, positionOffset, 0);
+
+            for (int i = 0; i < _cellEdge; i++)
+            {
+                for (int j = 0; j < _cellEdge; j++)
+                {
+                    viewCells[i, j] = Instantiate(_prefabViewCell, _spawnPoint.position, transformViewFace.rotation);
+                    viewCells[i, j].transform.SetParent(transformViewFace);
+                    viewCells[i, j].Init(_cellViewConfigProvider);
+
+                    _spawnPoint.localPosition += new Vector3(transformViewFace.localScale.x, 0, 0);
+                }
+
+                _spawnPoint.localPosition = new Vector3(-positionOffset, _spawnPoint.localPosition.y - transformViewFace.localScale.y, 0);
+            }
+
+            _spawnPoint.SetParent(_transform);
+
+            if (isCollider)
+            {
+                foreach (ViewCell viewCell in viewCells)
+                {
+                    viewCell.gameObject.AddComponent<BoxCollider>();
+                }
+            }
+
+            return viewCells;
+        }
     }
 }

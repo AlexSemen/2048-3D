@@ -1,31 +1,35 @@
+using Main;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionConfigProvider
+namespace Explosives
 {
-    [SerializeField] private FaceController _faceController;
-    
-    private readonly IExplosion _pointExplosion = new PointExplosion();
-    private readonly IExplosion _areaExplosion = new AreaExplosion();
-
-    public ExplosionConfigProvider(FaceController faceController)
+    public class ExplosionConfigProvider
     {
-        _faceController = faceController;
-    }
+        [SerializeField] private FaceController _faceController;
 
-    public List<Cell> GetCellTarget(Cell cell, ExplosionType explosionType)
-    {
-        switch (explosionType)
+        private readonly IExplosion _pointExplosion = new PointExplosion();
+        private readonly IExplosion _areaExplosion = new AreaExplosion();
+
+        public ExplosionConfigProvider(FaceController faceController)
         {
-            case ExplosionType.Point: 
-                return _pointExplosion.GetCellTarget(cell, _faceController);
+            _faceController = faceController;
+        }
 
-            case ExplosionType.Area:
-                return _areaExplosion.GetCellTarget(cell, _faceController);
+        public List<Cell> GetCellTarget(Cell cell, ExplosionType explosionType)
+        {
+            switch (explosionType)
+            {
+                case ExplosionType.Point:
+                    return _pointExplosion.GetCellTarget(cell, _faceController);
 
-            default:
-                throw new ArgumentException();
+                case ExplosionType.Area:
+                    return _areaExplosion.GetCellTarget(cell, _faceController);
+
+                default:
+                    throw new ArgumentException();
+            }
         }
     }
 }

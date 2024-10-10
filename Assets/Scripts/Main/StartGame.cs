@@ -1,49 +1,55 @@
+using Main.LimitingMover;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using View;
+using View.UI;
 
-public class StartGame : MonoBehaviour
+namespace Main
 {
-    [SerializeField] private ViewButtonMoveFace _viewButtonMove;
-    [SerializeField] private FaceController _faceController;
-    [SerializeField] private Player _player;
-    [SerializeField] private LimitingMovements _limitingMovements;
-    [SerializeField] private YandexLeaderboard _leaderboard;
-    [SerializeField] private Button _rotationCubButtonHorizon1;
-    [SerializeField] private Button _rotationCubButtonHorizon2;
-    [SerializeField] private Button _rotationCubButtonVertical;
-    [SerializeField] private AutoPowerOff _helpHint;
-
-    public void NewGame(ShapeType shapeType, bool isLimitMove = false, int startPoints = 0, List<int> _blockValues = null)
+    public class StartGame : MonoBehaviour
     {
-        if (shapeType == ShapeType.Classic)
-            isLimitMove = false;
+        [SerializeField] private ViewButtonMoveFace _viewButtonMoveFace;
+        [SerializeField] private FaceController _faceController;
+        [SerializeField] private Player _player;
+        [SerializeField] private LimitingMovements _limitingMovements;
+        [SerializeField] private YandexLeaderboard _yandexLeaderboard;
+        [SerializeField] private Button _rotationCubeButtonHorizonLeft;
+        [SerializeField] private Button _rotationCubeButtonHorizonRight;
+        [SerializeField] private Button _rotationCubeButtonVertical;
+        [SerializeField] private AutoPowerOff _helpHint;
 
-        _limitingMovements.Clear();
-
-        _faceController.Init(shapeType, _blockValues);
-        _player.StartPoints(startPoints);
-
-        SetActivRotationCubButton(shapeType == ShapeType.Cub);
-        _viewButtonMove.UpdateActiveButtons(shapeType);
-
-        if (isLimitMove)
+        public void NewGame(ShapeType shapeType, bool isLimitMove = false, int startPoints = 0, List<int> _blockValues = null)
         {
-            _limitingMovements.Init();
+            if (shapeType == ShapeType.Classic)
+                isLimitMove = false;
+
+            _limitingMovements.Clear();
+
+            _faceController.Init(shapeType, _blockValues);
+            _player.StartPoints(startPoints);
+
+            SetActivRotationCubButton(shapeType == ShapeType.Cub);
+            _viewButtonMoveFace.UpdateActiveButtons(shapeType);
+
+            if (isLimitMove)
+            {
+                _limitingMovements.Init();
+            }
+
+            _yandexLeaderboard.SetSaveLeaderboard(shapeType, isLimitMove);
+
+            if (_blockValues == null)
+            {
+                _helpHint.gameObject.SetActive(true);
+            }
         }
 
-        _leaderboard.SetSaveLeaderboard(shapeType, isLimitMove);
-
-        if(_blockValues == null)
+        private void SetActivRotationCubButton(bool activ)
         {
-            _helpHint.gameObject.SetActive(true);
+            _rotationCubeButtonHorizonLeft.gameObject.SetActive(activ);
+            _rotationCubeButtonHorizonRight.gameObject.SetActive(activ);
+            _rotationCubeButtonVertical.gameObject.SetActive(activ);
         }
-    }
-
-    private void SetActivRotationCubButton(bool activ)
-    {
-        _rotationCubButtonHorizon1.gameObject.SetActive(activ);
-        _rotationCubButtonHorizon2.gameObject.SetActive(activ);
-        _rotationCubButtonVertical.gameObject.SetActive(activ);
     }
 }

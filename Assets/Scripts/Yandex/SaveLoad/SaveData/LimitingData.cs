@@ -1,32 +1,36 @@
+using Main;
 using System.Collections.Generic;
 
-public class LimitingData
+namespace Yandex.SaveLoad.SaveData
 {
-    private readonly List<int> _limitingMovementsValues = new List<int>();
-
-    public bool IsLimitMove { get; private set; }
-    public IReadOnlyList<int> LimitingMovementsValues => _limitingMovementsValues;
-
-    public void SetData(bool isLimitMove, Dictionary<Face, int> faceMoves, FaceController faceController)
+    public class LimitingData
     {
-        _limitingMovementsValues.Clear();
-        
-        IsLimitMove = isLimitMove;
+        private readonly List<int> _limitingMovementsValues = new List<int>();
 
-        if (IsLimitMove == false)
-        {
-            return;
-        }
+        public bool IsLimitMove { get; private set; }
+        public IReadOnlyList<int> LimitingMovementsValues => _limitingMovementsValues;
 
-        foreach (Face face in faceController.Faces)
+        public void SetData(bool isLimitMove, Dictionary<Face, int> faceMoves, FaceController faceController)
         {
-            _limitingMovementsValues.Add(faceMoves[face]);
-        }
+            _limitingMovementsValues.Clear();
 
-        if (faceController.ShapeType == ShapeType.Cub)
-        {
-            _limitingMovementsValues.Add(faceMoves[faceController.UpFace]);
-            _limitingMovementsValues.Add(faceMoves[faceController.DownFace]);
+            IsLimitMove = isLimitMove;
+
+            if (IsLimitMove == false)
+            {
+                return;
+            }
+
+            foreach (Face face in faceController.Faces)
+            {
+                _limitingMovementsValues.Add(faceMoves[face]);
+            }
+
+            if (faceController.ShapeType == ShapeType.Cub)
+            {
+                _limitingMovementsValues.Add(faceMoves[faceController.UpFace]);
+                _limitingMovementsValues.Add(faceMoves[faceController.DownFace]);
+            }
         }
     }
 }

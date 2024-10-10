@@ -1,7 +1,10 @@
-public enum ShapeType
+namespace Main
 {
-    Null = 0,
-    Classic = 1,
-    Line = 2,
-    Cub = 3
+    public enum ShapeType
+    {
+        Null = 0,
+        Classic = 1,
+        Line = 2,
+        Cub = 3
+    }
 }

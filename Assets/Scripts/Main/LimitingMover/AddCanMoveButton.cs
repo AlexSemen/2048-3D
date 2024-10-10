@@ -1,34 +1,37 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddCanMoveButton : MonoBehaviour
+namespace Main.LimitingMover
 {
-    [SerializeField] private LimitingMovements _limitingMovements;
-    [SerializeField] private Player _player;
-    [SerializeField] private int _price;
-    [SerializeField] private Button _button;
-
-    private void OnEnable()
+    public class AddCanMoveButton : MonoBehaviour
     {
-        _player.ChangedCoins += CheckCanBuy;
-    }
+        [SerializeField] private LimitingMovements _limitingMovements;
+        [SerializeField] private Player _player;
+        [SerializeField] private int _price;
+        [SerializeField] private Button _button;
 
-    private void OnDisable()
-    {
-        _player.ChangedCoins -= CheckCanBuy;
-    }
-
-    public void AddCanMoveOnClick()
-    {
-        if (_player.Coins >= _price)
+        private void OnEnable()
         {
-            _limitingMovements.AddCanMoveActivFace();
-            _player.ÑhangeÑoins(-_price);
+            _player.ChangedCoins += CheckCanBuy;
         }
-    }
 
-    private void CheckCanBuy()
-    {
-        _button.interactable = _player.Coins >= _price;
+        private void OnDisable()
+        {
+            _player.ChangedCoins -= CheckCanBuy;
+        }
+
+        public void AddCanMoveOnClick()
+        {
+            if (_player.Coins >= _price)
+            {
+                _limitingMovements.AddCanMoveActivFace();
+                _player.ÑhangeÑoins(-_price);
+            }
+        }
+
+        private void CheckCanBuy()
+        {
+            _button.interactable = _player.Coins >= _price;
+        }
     }
 }

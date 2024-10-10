@@ -2,9 +2,11 @@ using UnityEngine;
 using Agava.WebUtility;
 using System;
 
-public class CheckingFocus : MonoBehaviour
+namespace Yandex
 {
-    public event Action<bool> ChangeFocus;
+    public class CheckingFocus : MonoBehaviour
+    {
+        public event Action<bool> ChangeFocus;
 
 #if !UNITY_EDITOR
     private void OnEnable()
@@ -36,5 +38,6 @@ public class CheckingFocus : MonoBehaviour
         Time.timeScale = value ? 0 : 1; 
     }
 #endif
+    }
 }
 

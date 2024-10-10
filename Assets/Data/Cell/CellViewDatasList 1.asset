@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7e85c22b66663940a77b0edb9176503, type: 3}
-  m_Name: CellViewDatasList
+  m_Script: {fileID: 11500000, guid: 965915bd81a450e44b00adf84294cff9, type: 3}
+  m_Name: CellViewDatasList 1
   m_EditorClassIdentifier: 
   _list:
   - _type: 0

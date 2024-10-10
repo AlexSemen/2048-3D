@@ -3286,7 +3286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a544295d5eda748b1e394348b9ec24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellViewDatasList: {fileID: 11400000, guid: 164b60373c483e944bef5401b32905fd, type: 2}
+  _cellViewDatasList: {fileID: 11400000, guid: a9b61865dec3e8648bb5717f7b20018e, type: 2}
 --- !u!114 &143262698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18402,12 +18402,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 158002568}
-        m_TargetAssemblyTypeName: DestructionBlocks, Assembly-CSharp
+        m_TargetAssemblyTypeName: Explosives.DestructionBlocks, Assembly-CSharp
         m_MethodName: ButtonOnClick
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 09a6edf0577734b4e92007e60707c7f2, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ExplosionObject, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Explosives.ExplosionObject, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -41931,12 +41931,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 158002568}
-        m_TargetAssemblyTypeName: DestructionBlocks, Assembly-CSharp
+        m_TargetAssemblyTypeName: Explosives.DestructionBlocks, Assembly-CSharp
         m_MethodName: ButtonOnClick
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 09a6edf0577734b4e92007e60707c7f2, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ExplosionObject, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Explosives.ExplosionObject, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -44671,12 +44671,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 158002568}
-        m_TargetAssemblyTypeName: DestructionBlocks, Assembly-CSharp
+        m_TargetAssemblyTypeName: Explosives.DestructionBlocks, Assembly-CSharp
         m_MethodName: ButtonOnClick
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 3d4428343698b1c4ab94a0cbc34fe7fe, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ExplosionObject, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Explosives.ExplosionObject, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -46722,14 +46722,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fa4d4ecf936a0479a3c898652f3813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewButtonMove: {fileID: 1453810649}
+  _viewButtonMoveFace: {fileID: 1453810649}
   _faceController: {fileID: 2025648888}
   _player: {fileID: 1239205322}
   _limitingMovements: {fileID: 48850301}
-  _leaderboard: {fileID: 1714131129}
-  _rotationCubButtonHorizon1: {fileID: 701066626}
-  _rotationCubButtonHorizon2: {fileID: 984548203}
-  _rotationCubButtonVertical: {fileID: 1458396981}
+  _yandexLeaderboard: {fileID: 1714131129}
+  _rotationCubeButtonHorizonLeft: {fileID: 701066626}
+  _rotationCubeButtonHorizonRight: {fileID: 984548203}
+  _rotationCubeButtonVertical: {fileID: 1458396981}
   _helpHint: {fileID: 1363047379}
 --- !u!4 &1453810648
 Transform:
@@ -67621,12 +67621,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 158002568}
-        m_TargetAssemblyTypeName: DestructionBlocks, Assembly-CSharp
+        m_TargetAssemblyTypeName: Explosives.DestructionBlocks, Assembly-CSharp
         m_MethodName: ButtonOnClick
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 3d4428343698b1c4ab94a0cbc34fe7fe, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ExplosionObject, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Explosives.ExplosionObject, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

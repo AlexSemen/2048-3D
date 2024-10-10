@@ -3,15 +3,17 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class CheckAuthorization : MonoBehaviour
+namespace Yandex
 {
-    [SerializeField] private YandexSetGet _yandexSetGet;
+    public class CheckAuthorization : MonoBehaviour
+    {
+        [SerializeField] private YandexSetGet _yandexSetGet;
 
-    public event Action<bool> ChangedAuthorized;
-    public event Action<bool> ChangedHasPersonalProfileDataPermission;
+        public event Action<bool> ChangedAuthorized;
+        public event Action<bool> ChangedHasPersonalProfileDataPermission;
 
-    private bool _isHasPersonalProfileDataPermission = false;
-    private bool _isAuthorized = false;
+        private bool _isHasPersonalProfileDataPermission = false;
+        private bool _isAuthorized = false;
 #if !UNITY_EDITOR
     private IEnumerator Start()
     {
@@ -62,31 +64,32 @@ public class CheckAuthorization : MonoBehaviour
     }
 
 #endif
-    public void OnAuthorizeButtonClick()
-    {
-        PlayerAccount.Authorize();
-    }
-
-    public void OnRequestPersonalDataClick()
-    {
-        PlayerAccount.RequestPersonalProfileDataPermission();
-    }
-
-    private void SetAuthorized(bool isAuthorized)
-    {
-        _isAuthorized = isAuthorized;
-
-        if (isAuthorized)
+        public void OnAuthorizeButtonClick()
         {
-            _yandexSetGet.Load();
+            PlayerAccount.Authorize();
         }
-        
-        ChangedAuthorized?.Invoke(isAuthorized);
-    }
 
-    private void SetHasPersonalProfileDataPermission(bool isHasPersonalProfileDataPermission)
-    {
-        _isHasPersonalProfileDataPermission = isHasPersonalProfileDataPermission;
-        ChangedHasPersonalProfileDataPermission?.Invoke(isHasPersonalProfileDataPermission);
+        public void OnRequestPersonalDataClick()
+        {
+            PlayerAccount.RequestPersonalProfileDataPermission();
+        }
+
+        private void SetAuthorized(bool isAuthorized)
+        {
+            _isAuthorized = isAuthorized;
+
+            if (isAuthorized)
+            {
+                _yandexSetGet.Load();
+            }
+
+            ChangedAuthorized?.Invoke(isAuthorized);
+        }
+
+        private void SetHasPersonalProfileDataPermission(bool isHasPersonalProfileDataPermission)
+        {
+            _isHasPersonalProfileDataPermission = isHasPersonalProfileDataPermission;
+            ChangedHasPersonalProfileDataPermission?.Invoke(isHasPersonalProfileDataPermission);
+        }
     }
 }

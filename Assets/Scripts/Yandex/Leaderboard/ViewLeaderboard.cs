@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ViewLeaderboard : MonoBehaviour
 {
-    [SerializeField] private Transform _container;
-    [SerializeField] private LeaderboardElement _leaderboardElementPrefab;
-    [SerializeField] private LeaderboardElement _leaderboardElementPersonal;
-    [SerializeField] private int _quantityPlayersShown = 9;
-
     private const string NullRank = "-";
     private const string NullName = "-----";
     private const string NullScore = "---";
 
     private readonly List<LeaderboardElement> _spawnedElements = new List<LeaderboardElement>();
+
+    [SerializeField] private Transform _container;
+    [SerializeField] private LeaderboardElement _leaderboardElementPrefab;
+    [SerializeField] private LeaderboardElement _leaderboardElementPersonal;
+    [SerializeField] private int _quantityPlayersShown = 9;
 
     private LeaderboardPlayer _leaderboardPlayerNull;
 

@@ -1,49 +1,48 @@
+using Animation;
+using Loop;
+using Main;
+using Mover;
 using UnityEngine;
 
-public class ViewFace : MonoBehaviour
+namespace View
 {
-    [SerializeField] private AnimationBlockMove _animationBlockMove;
-    
-    private Face _face;
-    private ViewCell[,] _viewCells;
-
-    public Face Face => _face;
-
-    public void Init(ViewCell[,] viewCells, AnimationBlockMove animationBlockMove)
+    public class ViewFace : MonoBehaviour
     {
-        _viewCells = viewCells;
-        _animationBlockMove = animationBlockMove;
-    }
+        [SerializeField] private AnimationBlockMove _animationBlockMove;
 
-    public void SetFace(Face face) 
-    {
-        _face = face;
-    }
+        private Face _face;
+        private ViewCell[,] _viewCells;
 
-    public void DisplayCell()
-    {
-        if(_face == null) 
-            return;
+        public Face Face => _face;
 
-        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_face.CellEdge - 1)))
+        public void Init(ViewCell[,] viewCells, AnimationBlockMove animationBlockMove)
         {
-            _viewCells[valueIJ.I, valueIJ.J].SetCell(_face.GetCell(valueIJ.I, valueIJ.J));
+            _viewCells = viewCells;
+            _animationBlockMove = animationBlockMove;
         }
 
-        //for (int i = 0; i < _face.CellEdge; i++)
-        //{
-        //    for (int j = 0; j < _face.CellEdge; j++)
-        //    {
-        //        _viewCells[i, j].SetCell(_face.GetCell(i, j));
-        //    }
-        //}
-    }
+        public void SetFace(Face face)
+        {
+            _face = face;
+        }
 
-    public void MoveBlock(int i, int j, MoveType moveType)
-    {
-        if (_animationBlockMove == null)
-            return;
+        public void DisplayCell()
+        {
+            if (_face == null)
+                return;
 
-        _animationBlockMove.Move(_viewCells[i, j].TransformViewBlock, moveType);
+            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_face.CellEdge - 1)))
+            {
+                _viewCells[valueIJ.I, valueIJ.J].SetCell(_face.GetCell(valueIJ.I, valueIJ.J));
+            }
+        }
+
+        public void MoveBlock(int i, int j, MoveType moveType)
+        {
+            if (_animationBlockMove == null)
+                return;
+
+            _animationBlockMove.Move(_viewCells[i, j].TransformViewBlock, moveType);
+        }
     }
 }

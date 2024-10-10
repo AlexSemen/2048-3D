@@ -2,49 +2,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ViewHalpGameVertical : MonoBehaviour
+namespace View.UI
 {
-    [SerializeField] private Button _left;
-    [SerializeField] private Button _right;
-    [SerializeField] private List<GameObject> _panels;
-
-    private const int DefaultIndex = 0;
-
-    private int _index;
-
-    private void OnEnable()
+    public class ViewHalpGameVertical : MonoBehaviour
     {
-        EnablByIndex(DefaultIndex);
-    }
+        [SerializeField] private Button _left;
+        [SerializeField] private Button _right;
+        [SerializeField] private List<GameObject> _panels;
 
-    private void OnDisable()
-    {
-        _panels[_index].SetActive(false);
-    }
+        private const int DefaultIndex = 0;
 
-    public void OnClickLeft()
-    {
-        EnablByIndex(_index - 1);
-    }
+        private int _index;
 
-    public void OnClickRight()
-    {
-        EnablByIndex(_index + 1);
-    }
+        private void OnEnable()
+        {
+            EnablByIndex(DefaultIndex);
+        }
 
-    private void EnablByIndex(int index)
-    {
-        _panels[_index].SetActive(false);
-        _panels[index].SetActive(true);
-        
-        _index = index;
+        private void OnDisable()
+        {
+            _panels[_index].SetActive(false);
+        }
 
-        CheckDisplayingButtons();
-    }
+        public void OnClickLeft()
+        {
+            EnablByIndex(_index - 1);
+        }
 
-    private void CheckDisplayingButtons()
-    {
-        _left.interactable = _index > 0;
-        _right.interactable = _index < _panels.Count - 1;
+        public void OnClickRight()
+        {
+            EnablByIndex(_index + 1);
+        }
+
+        private void EnablByIndex(int index)
+        {
+            _panels[_index].SetActive(false);
+            _panels[index].SetActive(true);
+
+            _index = index;
+
+            CheckDisplayingButtons();
+        }
+
+        private void CheckDisplayingButtons()
+        {
+            _left.interactable = _index > 0;
+            _right.interactable = _index < _panels.Count - 1;
+        }
     }
 }

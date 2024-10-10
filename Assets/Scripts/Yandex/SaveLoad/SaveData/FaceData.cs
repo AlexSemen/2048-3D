@@ -1,68 +1,58 @@
+using Loop;
+using Main;
 using System.Collections.Generic;
 
-public class FaceData
+namespace Yandex.SaveLoad.SaveData
 {
-    private readonly List<int> _blockValues = new List<int>();
-
-    public bool IsFace { get; private set; }
-    public ShapeType ShapeType { get; private set; }
-    public IReadOnlyList<int> BlockValues => _blockValues;
-
-    public void SetData(FaceController faceController)
+    public class FaceData
     {
-        _blockValues.Clear();
+        private readonly List<int> _blockValues = new List<int>();
 
-        if (faceController.Faces == null || faceController.Faces.Count == 0)
-        {
-            IsFace = false;
-            return;
-        }
-        else
-        {
-            IsFace = true;
-        }
+        public bool IsFace { get; private set; }
+        public ShapeType ShapeType { get; private set; }
+        public IReadOnlyList<int> BlockValues => _blockValues;
 
-        ShapeType = faceController.ShapeType;
-
-        foreach (Face face in faceController.Faces)
+        public void SetData(FaceController faceController)
         {
-            AddBlockValues(face);
-        }
+            _blockValues.Clear();
 
-        if (ShapeType == ShapeType.Cub)
-        {
-            AddBlockValues(faceController.UpFace);
-            AddBlockValues(faceController.DownFace);
-        }
-    }
-
-    private void AddBlockValues(Face face)
-    {
-        foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(face.CellEdge - 1)))
-        {
-            if (face.GetCell(valueIJ.I, valueIJ.J).Block != null)
+            if (faceController.Faces == null || faceController.Faces.Count == 0)
             {
-                _blockValues.Add(face.GetCell(valueIJ.I, valueIJ.J).Block.Meaning);
+                IsFace = false;
+                return;
             }
             else
             {
-                _blockValues.Add(0);
+                IsFace = true;
+            }
+
+            ShapeType = faceController.ShapeType;
+
+            foreach (Face face in faceController.Faces)
+            {
+                AddBlockValues(face);
+            }
+
+            if (ShapeType == ShapeType.Cub)
+            {
+                AddBlockValues(faceController.UpFace);
+                AddBlockValues(faceController.DownFace);
             }
         }
 
-        //for (int i = 0; i < face.CellEdge; i++)
-        //{
-        //    for (int j = 0; j < face.CellEdge; j++)
-        //    {
-        //        if (face.GetCell(i, j).Block != null)
-        //        {
-        //            _blockValues.Add(face.GetCell(i, j).Block.Meaning);
-        //        }
-        //        else
-        //        {
-        //            _blockValues.Add(0);
-        //        }
-        //    }
-        //}
+        private void AddBlockValues(Face face)
+        {
+            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(face.CellEdge - 1)))
+            {
+                if (face.GetCell(valueIJ.I, valueIJ.J).Block != null)
+                {
+                    _blockValues.Add(face.GetCell(valueIJ.I, valueIJ.J).Block.Meaning);
+                }
+                else
+                {
+                    _blockValues.Add(0);
+                }
+            }
+        }
     }
 }

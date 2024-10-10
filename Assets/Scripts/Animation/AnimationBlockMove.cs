@@ -1,38 +1,42 @@
 using UnityEngine;
 using DG.Tweening;
+using Mover;
 
-public class AnimationBlockMove: MonoBehaviour
+namespace Animation
 {
-    private readonly float _time = 0.05f;
-    private readonly float _offset = 1;
-
-    private float _offsetX;
-    private float _offsetY;
-
-    public void Move(Transform targetTransform, MoveType moveType)
+    public class AnimationBlockMove : MonoBehaviour
     {
-        _offsetX = 0;
-        _offsetY = 0;
+        private readonly float _time = 0.05f;
+        private readonly float _offset = 1;
 
-        switch (moveType)
+        private float _offsetX;
+        private float _offsetY;
+
+        public void Move(Transform targetTransform, MoveType moveType)
         {
-            case MoveType.Left:
-                _offsetX = -_offset;
-                break;
-                
-            case MoveType.Right:
-                _offsetX = _offset;
-                break;
-                
-            case MoveType.Up:
-                _offsetY = _offset;
-                break;
-                
-            case MoveType.Down:
-                _offsetY = -_offset;
-                break;
-        }
+            _offsetX = 0;
+            _offsetY = 0;
 
-        targetTransform.DOLocalMove(new Vector3(_offsetX, _offsetY, targetTransform.localPosition.z), _time);
+            switch (moveType)
+            {
+                case MoveType.Left:
+                    _offsetX = -_offset;
+                    break;
+
+                case MoveType.Right:
+                    _offsetX = _offset;
+                    break;
+
+                case MoveType.Up:
+                    _offsetY = _offset;
+                    break;
+
+                case MoveType.Down:
+                    _offsetY = -_offset;
+                    break;
+            }
+
+            targetTransform.DOLocalMove(new Vector3(_offsetX, _offsetY, targetTransform.localPosition.z), _time);
+        }
     }
 }

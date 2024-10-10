@@ -1,30 +1,35 @@
+using Main;
 using UnityEngine;
+using View.UI;
 
-public class ViewButtonMoveFace : MonoBehaviour
+namespace View
 {
-    [SerializeField] private GameObject _moveCubButtonsHorizon;
-    [SerializeField] private GameObject _moveLineButtonsHorizon;
-    [SerializeField] private GameObject _moveCubButtonsVertical;
-    [SerializeField] private GameObject _moveLineButtonsVertical;
-    [SerializeField] private ViewVerticalButtons _viewVerticalButtons;
-
-    public void UpdateActiveButtons(ShapeType shapeType)
+    public class ViewButtonMoveFace : MonoBehaviour
     {
-        if(shapeType == ShapeType.Classic)
-        {
-            _moveCubButtonsVertical.SetActive(false);
-            _moveLineButtonsVertical.SetActive(false);
-            _moveCubButtonsHorizon.SetActive(false);
-            _moveLineButtonsHorizon.SetActive(false);
-        }
-        else
-        {
-            _moveLineButtonsHorizon.SetActive(true);
-            _moveCubButtonsHorizon.SetActive(shapeType == ShapeType.Cub);
-            _moveCubButtonsVertical.SetActive(shapeType == ShapeType.Cub);
-            _moveLineButtonsVertical.SetActive(shapeType != ShapeType.Cub);
-        }
+        [SerializeField] private GameObject _moveCubButtonsHorizon;
+        [SerializeField] private GameObject _moveLineButtonsHorizon;
+        [SerializeField] private GameObject _moveCubButtonsVertical;
+        [SerializeField] private GameObject _moveLineButtonsVertical;
+        [SerializeField] private ViewVerticalButtons _viewVerticalButtons;
 
-        _viewVerticalButtons.UpdateView();
+        public void UpdateActiveButtons(ShapeType shapeType)
+        {
+            if (shapeType == ShapeType.Classic)
+            {
+                _moveCubButtonsVertical.SetActive(false);
+                _moveLineButtonsVertical.SetActive(false);
+                _moveCubButtonsHorizon.SetActive(false);
+                _moveLineButtonsHorizon.SetActive(false);
+            }
+            else
+            {
+                _moveLineButtonsHorizon.SetActive(true);
+                _moveCubButtonsHorizon.SetActive(shapeType == ShapeType.Cub);
+                _moveCubButtonsVertical.SetActive(shapeType == ShapeType.Cub);
+                _moveLineButtonsVertical.SetActive(shapeType != ShapeType.Cub);
+            }
+
+            _viewVerticalButtons.UpdateView();
+        }
     }
 }

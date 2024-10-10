@@ -1,36 +1,40 @@
+using Main;
 using System.Collections.Generic;
 using System.Linq;
 
-public class GameData
+namespace Yandex.SaveLoad.SaveData
 {
-    public int Points;
-    public int Coins;
-    public bool IsFace;
-    public ShapeType ShapeType;
-    public List<int> BlockValues;
-    public bool IsLimitMove;
-    public List<int> LimitingMovementsValues;
-    public bool IsAudio;
-
-    public void SetData(PlayerData playerData, FaceData faceData, LimitingData limitingData, bool isAudio)
+    public class GameData
     {
-        BlockValues = null;
-        LimitingMovementsValues = null;
+        public int Points;
+        public int Coins;
+        public bool IsFace;
+        public ShapeType ShapeType;
+        public List<int> BlockValues;
+        public bool IsLimitMove;
+        public List<int> LimitingMovementsValues;
+        public bool IsAudio;
 
-        Coins = playerData.Coins;
-        IsFace = faceData.IsFace;
-        IsLimitMove = limitingData.IsLimitMove;
-        IsAudio = isAudio;
-
-        if (IsFace) 
+        public void SetData(PlayerData playerData, FaceData faceData, LimitingData limitingData, bool isAudio)
         {
-            Points = playerData.Points;
-            ShapeType = faceData.ShapeType;
-            BlockValues = faceData.BlockValues.ToList();
+            BlockValues = null;
+            LimitingMovementsValues = null;
 
-            if (IsLimitMove)
+            Coins = playerData.Coins;
+            IsFace = faceData.IsFace;
+            IsLimitMove = limitingData.IsLimitMove;
+            IsAudio = isAudio;
+
+            if (IsFace)
             {
-                LimitingMovementsValues = limitingData.LimitingMovementsValues.ToList();
+                Points = playerData.Points;
+                ShapeType = faceData.ShapeType;
+                BlockValues = faceData.BlockValues.ToList();
+
+                if (IsLimitMove)
+                {
+                    LimitingMovementsValues = limitingData.LimitingMovementsValues.ToList();
+                }
             }
         }
     }

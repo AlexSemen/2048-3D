@@ -1,24 +1,27 @@
-public class Block
+namespace Main
 {
-    private int _meaning;
-    private bool _isCanCombined = true;
-
-    public int Meaning => _meaning;
-    public bool IsCanCombined => _isCanCombined;
-
-    public Block(int meaning)
+    public class Block
     {
-        _meaning = meaning;
-    }
+        private int _meaning;
+        private bool _isCanCombined = true;
 
-    public void SetMeaning(int meaning)
-    {
-        _meaning = meaning;
-        _isCanCombined = false;
-    }
+        public int Meaning => _meaning;
+        public bool IsCanCombined => _isCanCombined;
 
-    public void ThrowStatus()
-    {
-        _isCanCombined = true;
+        public Block(int meaning)
+        {
+            _meaning = meaning;
+        }
+
+        public void SetMeaning(int meaning)
+        {
+            _meaning = meaning;
+            _isCanCombined = false;
+        }
+
+        public void ThrowStatus()
+        {
+            _isCanCombined = true;
+        }
     }
 }

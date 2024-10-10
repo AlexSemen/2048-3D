@@ -2,27 +2,30 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PointsConfigProvider : MonoBehaviour
+namespace CellData.PointsData
 {
-    [SerializeField] private PointsCellDataList _pointsCellDatasList;
-
-    private Dictionary<CellType, int> _pointsByCellType;
-
-    private void Awake()
+    public class PointsConfigProvider : MonoBehaviour
     {
-        _pointsByCellType = new Dictionary<CellType, int>();
+        [SerializeField] private PointsCellDataList _pointsCellDatasList;
 
-        foreach (PointsData pointsData in _pointsCellDatasList.List)
+        private Dictionary<CellType, int> _pointsByCellType;
+
+        private void Awake()
         {
-            _pointsByCellType.Add(pointsData.Type, pointsData.Points);
+            _pointsByCellType = new Dictionary<CellType, int>();
+
+            foreach (PointsData pointsData in _pointsCellDatasList.List)
+            {
+                _pointsByCellType.Add(pointsData.Type, pointsData.Points);
+            }
         }
-    }
 
-    public int GetColor(CellType cellType)
-    {
-        if (_pointsByCellType.ContainsKey(cellType))
-            return _pointsByCellType[cellType];
+        public int GetColor(CellType cellType)
+        {
+            if (_pointsByCellType.ContainsKey(cellType))
+                return _pointsByCellType[cellType];
 
-        throw new Exception($"Point for cellType {cellType} does not exist!");
+            throw new Exception($"Point for cellType {cellType} does not exist!");
+        }
     }
 }

@@ -1,25 +1,28 @@
 using UnityEngine;
 
-public class Orientation : MonoBehaviour
+namespace View.UI
 {
-    [SerializeField] private PanelObject _vertical;
-    [SerializeField] private PanelObject _horizon;
-    [SerializeField] private OrientationChecker _orientationChecker;
-
-    private void OnEnable()
+    public class Orientation : MonoBehaviour
     {
-        SetValue(_orientationChecker.IsVertical);
-        _orientationChecker.ChangedVertical += SetValue;
-    }
+        [SerializeField] private PanelObject _vertical;
+        [SerializeField] private PanelObject _horizon;
+        [SerializeField] private OrientationChecker _orientationChecker;
 
-    private void OnDisable()
-    {
-        _orientationChecker.ChangedVertical -= SetValue;
-    }
+        private void OnEnable()
+        {
+            SetValue(_orientationChecker.IsVertical);
+            _orientationChecker.ChangedVertical += SetValue;
+        }
 
-    private void SetValue(bool vertical)
-    {
-        _vertical.gameObject.SetActive(vertical);
-        _horizon.gameObject.SetActive(!vertical);
+        private void OnDisable()
+        {
+            _orientationChecker.ChangedVertical -= SetValue;
+        }
+
+        private void SetValue(bool vertical)
+        {
+            _vertical.gameObject.SetActive(vertical);
+            _horizon.gameObject.SetActive(!vertical);
+        }
     }
 }

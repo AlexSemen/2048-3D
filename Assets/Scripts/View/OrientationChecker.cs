@@ -1,42 +1,46 @@
 using System;
 using UnityEngine;
 
-[ExecuteAlways]
-[DefaultExecutionOrder(-10)]
-public class OrientationChecker : MonoBehaviour
+namespace View
 {
-    public event Action<bool> ChangedVertical;
-    private bool _isVertical;
-
-    public bool IsVertical => _isVertical;
-
-    private void Awake()
+    [ExecuteAlways]
+    [DefaultExecutionOrder(-10)]
+    public class OrientationChecker : MonoBehaviour
     {
-        HandleOrientation();
-    }
-
-    private void Start()
-    {
-        ChangedVertical?.Invoke(_isVertical);
-    }
-
-    void Update()
-    {
-        HandleOrientation();
-    }
-
-    private void HandleOrientation()
-    {
-        if (_isVertical && Screen.width > Screen.height*1.4f)
-        {
-            _isVertical = false;
-        }
+        public event Action<bool> ChangedVertical;
         
-        if (!_isVertical && Screen.width <= Screen.height*1.4f)
+        private bool _isVertical;
+
+        public bool IsVertical => _isVertical;
+
+        private void Awake()
         {
-            _isVertical = true;
+            HandleOrientation();
         }
 
-        ChangedVertical?.Invoke(_isVertical);
+        private void Start()
+        {
+            ChangedVertical?.Invoke(_isVertical);
+        }
+
+        void Update()
+        {
+            HandleOrientation();
+        }
+
+        private void HandleOrientation()
+        {
+            if (_isVertical && Screen.width > Screen.height * 1.4f)
+            {
+                _isVertical = false;
+            }
+
+            if (!_isVertical && Screen.width <= Screen.height * 1.4f)
+            {
+                _isVertical = true;
+            }
+
+            ChangedVertical?.Invoke(_isVertical);
+        }
     }
 }

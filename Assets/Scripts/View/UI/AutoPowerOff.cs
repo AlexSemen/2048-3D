@@ -1,26 +1,29 @@
 using UnityEngine;
 
-public class AutoPowerOff : MonoBehaviour
+namespace View.UI
 {
-    [SerializeField] private float _timeLife = 10f;
-
-    private float _currentTimeLife;
-
-    private void OnEnable()
+    public class AutoPowerOff : MonoBehaviour
     {
-        _currentTimeLife = _timeLife;
-    }
+        [SerializeField] private float _timeLife = 10f;
 
-    private void Update()
-    {
-        if (_currentTimeLife < 0 || Input.GetMouseButtonUp(0))
+        private float _currentTimeLife;
+
+        private void OnEnable()
         {
-            gameObject.SetActive(false);
-            return;
+            _currentTimeLife = _timeLife;
         }
-        else
+
+        private void Update()
         {
-            _currentTimeLife -= Time.deltaTime;
+            if (_currentTimeLife < 0 || Input.GetMouseButtonUp(0))
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            else
+            {
+                _currentTimeLife -= Time.deltaTime;
+            }
         }
     }
 }

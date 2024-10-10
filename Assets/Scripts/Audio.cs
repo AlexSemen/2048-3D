@@ -1,20 +1,21 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Yandex;
 
 public class Audio : MonoBehaviour
 {
+    private const string Group = "Value";
+
+    private readonly float _turnedOn = 0;
+    private readonly float _turnedOff = -80;
+
     [SerializeField] private AudioMixerGroup _audioMixerGroup;
     [SerializeField] private CheckingFocus _ñheckingFocus;
     [SerializeField] private VideoAdd _videoAdd;
     [SerializeField] private Image _image;
     [SerializeField] private Sprite _spriteOn;
     [SerializeField] private Sprite _spriteOff;
-
-    private const string Group = "Value";
-
-    private readonly float _turnedOn = 0;
-    private readonly float _turnedOff = -80;
 
     private bool _isTurnedOn = true;
 

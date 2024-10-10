@@ -1,88 +1,92 @@
 using Agava.YandexGames;
+using Main;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Yandex;
 
-[RequireComponent(typeof(Player))]
-public class ViewPlayer : MonoBehaviour
+namespace View
 {
-    [SerializeField] private TMP_Text _name;
-    [SerializeField] private TMP_Text _pointsText;
-    [SerializeField] private TMP_Text _coinsText;
-    [SerializeField] private Button _logInButton;
-    [SerializeField] private Button _requestPersonalDataButton;
-    [SerializeField] private CheckAuthorization _ÒheckAuthorization;
-    [SerializeField] private LocalizationChecker _localizationChecker;
-  
-    private const string AnonymousRu = "¿ÌÓÌËÏ";
-    private const string AnonymousEn = "Anonymous";
-    private const string AnonymousTr = "Anonim";
-
-    private string _anonymousName;
-    private Player _player;
-
-    private void Awake()
+    [RequireComponent(typeof(Player))]
+    public class ViewPlayer : MonoBehaviour
     {
-        _player = GetComponent<Player>();
-    }
+        private const string AnonymousRu = "¿ÌÓÌËÏ";
+        private const string AnonymousEn = "Anonymous";
+        private const string AnonymousTr = "Anonim";
 
-    private void Start()
-    {
-        switch (_localizationChecker.LocalizationType)
+        [SerializeField] private TMP_Text _name;
+        [SerializeField] private TMP_Text _pointsText;
+        [SerializeField] private TMP_Text _coinsText;
+        [SerializeField] private Button _logInButton;
+        [SerializeField] private Button _requestPersonalDataButton;
+        [SerializeField] private CheckAuthorization _ÒheckAuthorization;
+        [SerializeField] private LocalizationChecker _localizationChecker;
+
+        private string _anonymousName;
+        private Player _player;
+
+        private void Awake()
         {
-            case LocalizationType.ru:
-                _anonymousName = AnonymousRu;
-                break;
-
-            case LocalizationType.tr:
-                _anonymousName = AnonymousTr;
-                break;
-
-            default:
-                _anonymousName = AnonymousEn;
-                break;
+            _player = GetComponent<Player>();
         }
-    }
 
-    private void OnEnable()
-    {
-        _player.ChangedCoins += SetCoinsText;
-        _player.ChangedPoints += SetPointsText;
-        _ÒheckAuthorization.ChangedAuthorized += UpdateActiveLogInButton;
-        _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission += UpdateRequestPersonalDataButton;
-        _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission += UpdateNameText;
-    }
+        private void Start()
+        {
+            switch (_localizationChecker.LocalizationType)
+            {
+                case LocalizationType.ru:
+                    _anonymousName = AnonymousRu;
+                    break;
 
-    private void OnDisable()
-    {
-        _player.ChangedCoins -= SetCoinsText;
-        _player.ChangedPoints -= SetPointsText;
-        _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission -= UpdateActiveLogInButton;
-        _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission -= UpdateRequestPersonalDataButton;
-        _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission -= UpdateNameText;
-    }
+                case LocalizationType.tr:
+                    _anonymousName = AnonymousTr;
+                    break;
 
-    private void SetPointsText(int points)
-    {
-        _pointsText.text = points.ToString();
-    }
+                default:
+                    _anonymousName = AnonymousEn;
+                    break;
+            }
+        }
 
-    private void SetCoinsText()
-    {
-        _coinsText.text = _player.Coins.ToString();
-    }
-    private void UpdateActiveLogInButton(bool value)
-    {
-        _logInButton.gameObject.SetActive(!value);
-    }
+        private void OnEnable()
+        {
+            _player.ChangedCoins += SetCoinsText;
+            _player.ChangedPoints += SetPointsText;
+            _ÒheckAuthorization.ChangedAuthorized += UpdateActiveLogInButton;
+            _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission += UpdateRequestPersonalDataButton;
+            _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission += UpdateNameText;
+        }
 
-    private void UpdateRequestPersonalDataButton(bool value)
-    {
-        _requestPersonalDataButton.gameObject.SetActive(!value);
-    }
+        private void OnDisable()
+        {
+            _player.ChangedCoins -= SetCoinsText;
+            _player.ChangedPoints -= SetPointsText;
+            _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission -= UpdateActiveLogInButton;
+            _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission -= UpdateRequestPersonalDataButton;
+            _ÒheckAuthorization.ChangedHasPersonalProfileDataPermission -= UpdateNameText;
+        }
 
-    private void UpdateNameText(bool value)
-    {
+        private void SetPointsText(int points)
+        {
+            _pointsText.text = points.ToString();
+        }
+
+        private void SetCoinsText()
+        {
+            _coinsText.text = _player.Coins.ToString();
+        }
+        private void UpdateActiveLogInButton(bool value)
+        {
+            _logInButton.gameObject.SetActive(!value);
+        }
+
+        private void UpdateRequestPersonalDataButton(bool value)
+        {
+            _requestPersonalDataButton.gameObject.SetActive(!value);
+        }
+
+        private void UpdateNameText(bool value)
+        {
 #if !UNITY_EDITOR
         if (value)
         {
@@ -96,5 +100,6 @@ public class ViewPlayer : MonoBehaviour
             _name.text = _anonymousName;
         }
 #endif
+        }
     }
 }

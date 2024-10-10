@@ -1,33 +1,36 @@
-public class Cell
+namespace Main
 {
-    private Block _block = null;
-    private bool _isTargetCell = false;
-    private bool _isBoom = false;
-
-    public Block Block => _block;
-    public bool IsTargetCell => _isTargetCell;
-    public bool IsBoom => _isBoom;
-
-    public void SetBlock(Block block)
+    public class Cell
     {
-        _block = block;
-    }
+        private Block _block = null;
+        private bool _isTargetCell = false;
+        private bool _isBoom = false;
 
-    public void SetTargetCell(bool value)
-    {
-        _isTargetCell = value;
-    }
+        public Block Block => _block;
+        public bool IsTargetCell => _isTargetCell;
+        public bool IsBoom => _isBoom;
 
-    public void ThrowStatusBlock()
-    {
-        if(_block != null)
+        public void SetBlock(Block block)
         {
-            _block.ThrowStatus();
+            _block = block;
         }
-    }
 
-    public void SetBoom(bool isBoom)
-    {
-        _isBoom = isBoom;
+        public void SetTargetCell(bool value)
+        {
+            _isTargetCell = value;
+        }
+
+        public void ThrowStatusBlock()
+        {
+            if (_block != null)
+            {
+                _block.ThrowStatus();
+            }
+        }
+
+        public void SetBoom(bool isBoom)
+        {
+            _isBoom = isBoom;
+        }
     }
 }

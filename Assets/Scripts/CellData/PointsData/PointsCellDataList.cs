@@ -1,8 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PointsDatasList", menuName = "Data/PointsDatasList")]
-public class PointsCellDataList : DataList<PointsData>
+namespace CellData.PointsData
 {
-    
+    [CreateAssetMenu(fileName = "PointsDatasList", menuName = "Data/PointsDatasList")]
+    public class PointsCellDataList : DataList<PointsData>
+    {
+
+    }
 }

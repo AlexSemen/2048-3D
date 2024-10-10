@@ -1,57 +1,59 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Yandex.SaveLoad;
 
-public class YandexSetGet : MonoBehaviour
+namespace Yandex
 {
-    [SerializeField] private SavingLoading _savingLoading;
-
-    public event Action<int> ToApplyYandex;
-
-    private const float TimeBetween = 5.1f;
-    private const int NullIndex = 0;
-
-    private float _delay = -1;
-    private int _indexs = 0;
-    private int _currentIndex = 0;
-    private bool _isNeedLoad = true;
-
-    private void Update()
+    public class YandexSetGet : MonoBehaviour
     {
-        if (_delay > 0)
-        {
-            _delay -= Time.deltaTime;
-        }
+        private const float TimeBetween = 5.1f;
+        private const int NullIndex = 0;
 
-        if (_delay <= 0)
+        [SerializeField] private SavingLoading _savingLoading;
+
+        public event Action<int> ToApplyYandex;
+
+        private float _delay = -1;
+        private int _indexs = 0;
+        private int _currentIndex = 0;
+        private bool _isNeedLoad = true;
+
+        private void Update()
         {
-            if (_isNeedLoad)
+            if (_delay > 0)
             {
-                _savingLoading.Load(TimeBetween);
-                _isNeedLoad = false;
+                _delay -= Time.deltaTime;
             }
-            else
-            {
-                ToApplyYandex?.Invoke(_currentIndex++);
 
-                if (_currentIndex >= _indexs)
+            if (_delay <= 0)
+            {
+                if (_isNeedLoad)
                 {
-                    _currentIndex = NullIndex;
+                    _savingLoading.Load(TimeBetween);
+                    _isNeedLoad = false;
                 }
+                else
+                {
+                    ToApplyYandex?.Invoke(_currentIndex++);
+
+                    if (_currentIndex >= _indexs)
+                    {
+                        _currentIndex = NullIndex;
+                    }
+                }
+
+                _delay = TimeBetween;
             }
-
-            _delay = TimeBetween;
         }
-    }
 
-    public int GetIndexToApplyYandex()
-    {
-        return ++_indexs;
-    }
+        public int GetIndexToApplyYandex()
+        {
+            return ++_indexs;
+        }
 
-    public void Load()
-    {
-        _isNeedLoad = true;
+        public void Load()
+        {
+            _isNeedLoad = true;
+        }
     }
 }

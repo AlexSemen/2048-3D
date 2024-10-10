@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class PanelObject : MonoBehaviour
+namespace View.UI
 {
-   
+    public class PanelObject : MonoBehaviour
+    {
+
+    }
 }

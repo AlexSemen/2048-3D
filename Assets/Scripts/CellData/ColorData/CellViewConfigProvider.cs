@@ -1,28 +1,32 @@
+using CellData.PointsData;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellViewConfigProvider : MonoBehaviour
+namespace CellData.ColorData
 {
-    [SerializeField] private CellViewDataList _cellViewDatasList;
-
-    private Dictionary<CellType, Color> _colorByCellType;
-
-    private void Awake()
+    public class CellViewConfigProvider : MonoBehaviour
     {
-        _colorByCellType = new Dictionary<CellType, Color>();
+        [SerializeField] private CellViewDataList _cellViewDatasList;
 
-        foreach (CellViewData cellViewData in _cellViewDatasList.List)
+        private Dictionary<CellType, Color> _colorByCellType;
+
+        private void Awake()
         {
-            _colorByCellType.Add(cellViewData.Type, cellViewData.Color);
+            _colorByCellType = new Dictionary<CellType, Color>();
+
+            foreach (CellViewData cellViewData in _cellViewDatasList.List)
+            {
+                _colorByCellType.Add(cellViewData.Type, cellViewData.Color);
+            }
         }
-    }
 
-    public Color GetColor(CellType cellType)
-    {
-        if (_colorByCellType.ContainsKey(cellType))
-            return _colorByCellType[cellType];
+        public Color GetColor(CellType cellType)
+        {
+            if (_colorByCellType.ContainsKey(cellType))
+                return _colorByCellType[cellType];
 
-        throw new Exception($"Color for cellType {cellType} does not exist!");
+            throw new Exception($"Color for cellType {cellType} does not exist!");
+        }
     }
 }
