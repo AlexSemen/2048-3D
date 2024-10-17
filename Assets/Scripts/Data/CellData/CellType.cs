@@ -1,4 +1,4 @@
-namespace CellData
+namespace Data.CellData
 {
     public enum CellType
     {

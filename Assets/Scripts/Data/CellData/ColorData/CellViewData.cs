@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CellData.PointsData
+namespace Data.CellData.PointsData
 {
     [Serializable]
     public class CellViewData

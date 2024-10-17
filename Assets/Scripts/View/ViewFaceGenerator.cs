@@ -32,9 +32,7 @@ namespace View
 
         public List<ViewFace> CreateLine(bool classic = false)
         {
-            ClearViewFace();
-            _transform.position = new Vector3(0, 0, PositionLineZ);
-            _spawnPoint.position = Vector3.zero;
+            setInitialSettings(PositionLineZ);
 
             _viewFaces.Add(Instantiate(_prefabViewFace, _spawnPoint.position, _spawnPoint.rotation));
 
@@ -53,17 +51,14 @@ namespace View
                 _transform.rotation = Quaternion.identity;
             }
 
-            InitViewFaces();
-            SetParentViewFaces();
+            InitView();
 
             return _viewFaces;
         }
 
         public List<ViewFace> CreateCub()
         {
-            ClearViewFace();
-            _transform.position = new Vector3(0, 0, PositionCubZ);
-            _spawnPoint.position = Vector3.zero;
+            setInitialSettings(PositionCubZ);
 
             _viewFaces.Add(Instantiate(_prefabViewFace, _spawnPoint.position, _spawnPoint.rotation));
             _transform.rotation = Quaternion.Euler(0, -AngleRotationCub, 0);
@@ -79,8 +74,7 @@ namespace View
 
             _transform.rotation = Quaternion.identity;
 
-            InitViewFaces();
-            SetParentViewFaces();
+            InitView();
 
             return _viewFaces;
         }
@@ -119,6 +113,19 @@ namespace View
             }
 
             _viewFaces.Clear();
+        }
+
+        private void setInitialSettings(float PositionZ)
+        {
+            ClearViewFace();
+            _transform.position = new Vector3(0, 0, PositionZ);
+            _spawnPoint.position = Vector3.zero;
+        }
+
+        private void InitView()
+        {
+            InitViewFaces();
+            SetParentViewFaces();
         }
     }
 }

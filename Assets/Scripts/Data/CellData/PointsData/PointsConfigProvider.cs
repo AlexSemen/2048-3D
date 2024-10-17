@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CellData.PointsData
+namespace Data.CellData.PointsData
 {
     public class PointsConfigProvider : MonoBehaviour
     {

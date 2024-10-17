@@ -1,8 +1,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using CellData;
-using CellData.ColorData;
+using Data.CellData;
+using Data.CellData.ColorData;
 using Main;
 
 namespace View

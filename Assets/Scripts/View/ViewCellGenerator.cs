@@ -1,4 +1,4 @@
-using CellData.ColorData;
+using Data.CellData.ColorData;
 using UnityEngine;
 
 namespace View

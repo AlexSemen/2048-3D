@@ -1,4 +1,5 @@
 using Agava.YandexGames;
+using Audio;
 using Main;
 using Main.LimitingMover;
 using System.Collections;
@@ -19,7 +20,7 @@ namespace Yandex.SaveLoad
         [SerializeField] private LimitingMovements _limitingMovements;
         [SerializeField] private GameObject _panelLoadFace;
         [SerializeField] private StartGame _settingsStarGame;
-        [SerializeField] private Audio _audio;
+        [SerializeField] private AudioManager _audio;
         [SerializeField] private StartMenuPanel _startMenuPanel;
         [SerializeField] private YandexSetGet _yandexSetGet;
 

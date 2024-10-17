@@ -31,14 +31,13 @@ namespace Main {
         public void Init(Face faceLeft)
         {
             FillCellLeft(faceLeft);
-            FillEmptyCell();
+            Init();
         }
 
         public void Init(Face faceLeft, Face faceRight)
         {
-            FillCellLeft(faceLeft);
             FillCellRight(faceRight);
-            FillEmptyCell();
+            Init(faceLeft);
         }
 
         public void InitUp(IReadOnlyList<Face> faces)
@@ -51,23 +50,11 @@ namespace Main {
             for (int i = 0; i < CellEdge; i++)
             {
                 _cells[i, 0] = faces[IndexLeftFaceCub].GetCell(0, i);
-            }
-
-            for (int i = 0; i < CellEdge; i++)
-            {
                 _cells[i, CellEdge - 1] = faces[IndexRightFaceCub].GetCell(0, CellEdge - i - 1);
-            }
-
-            for (int i = 0; i < CellEdge; i++)
-            {
                 _cells[0, i] = faces[IndexRearFaceCub].GetCell(0, CellEdge - i - 1);
-            }
-
-            for (int i = 0; i < CellEdge; i++)
-            {
                 _cells[CellEdge - 1, i] = faces[IndexActiveFaceCub].GetCell(0, i);
             }
-
+            
             FillEmptyCell();
         }
 
@@ -81,20 +68,8 @@ namespace Main {
             for (int i = 0; i < CellEdge; i++)
             {
                 _cells[i, 0] = faces[IndexLeftFaceCub].GetCell(CellEdge - 1, CellEdge - i - 1);
-            }
-
-            for (int i = 0; i < CellEdge; i++)
-            {
                 _cells[i, CellEdge - 1] = faces[IndexRightFaceCub].GetCell(CellEdge - 1, i);
-            }
-
-            for (int i = 0; i < CellEdge; i++)
-            {
                 _cells[0, i] = faces[IndexActiveFaceCub].GetCell(CellEdge - 1, i);
-            }
-
-            for (int i = 0; i < CellEdge; i++)
-            {
                 _cells[CellEdge - 1, i] = faces[IndexRearFaceCub].GetCell(CellEdge - 1, CellEdge - i - 1);
             }
 

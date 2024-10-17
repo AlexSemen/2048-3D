@@ -22,8 +22,7 @@ namespace Mover {
 
             faces[faces.Count - 1] = _currentFace;
 
-            faceUp?.TurnRight();
-            faceDown?.TurnLeft();
+            TurnFaces(faceUp, faceDown);
         }
 
         public void MoveRight(List<Face> faces, ref Face faceUp, ref Face faceDown)
@@ -37,8 +36,7 @@ namespace Mover {
 
             faces[IndexActivFaceCub] = _currentFace;
 
-            faceDown?.TurnRight();
-            faceUp?.TurnLeft();
+            TurnFaces(faceDown, faceUp);
         }
 
         public void MoveUp(List<Face> faces, ref Face faceUp, ref Face faceDown)
@@ -50,10 +48,7 @@ namespace Mover {
             faces[IndexRearFaceCub] = faceUp;
             faceUp = _currentFace;
 
-            faces[IndexRightFaceCub].TurnRight();
-            faces[IndexLeftFaceCub].TurnLeft();
-            faceDown.Invert();
-            faces[IndexRearFaceCub].Invert();
+            TurnFaces(faces[IndexRightFaceCub], faces[IndexLeftFaceCub], faceDown, faces[IndexRearFaceCub]);
         }
 
         public void MoveDown(List<Face> faces, ref Face faceUp, ref Face faceDown)
@@ -65,10 +60,15 @@ namespace Mover {
             faces[IndexRearFaceCub] = faceDown;
             faceDown = _currentFace;
 
-            faces[IndexLeftFaceCub].TurnRight();
-            faces[IndexRightFaceCub].TurnLeft();
-            faceUp.Invert();
-            faces[IndexRearFaceCub].Invert();
+            TurnFaces(faces[IndexLeftFaceCub], faces[IndexRightFaceCub], faceUp, faces[IndexRearFaceCub]);
+        }
+
+        private void TurnFaces(Face turnRight, Face turnLeft, Face invert = null, Face rearFace = null)
+        {
+            turnRight?.TurnRight();
+            turnLeft?.TurnLeft();
+            invert?.Invert();
+            rearFace?.Invert();
         }
     }
 }

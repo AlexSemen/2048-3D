@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
-using CellData;
-using CellData.PointsData;
+using Data.CellData;
+using Data.CellData.PointsData;
 using Yandex.SaveLoad.SaveData;
 
 namespace Main {

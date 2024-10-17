@@ -1,9 +1,9 @@
-using CellData.PointsData;
+using Data.CellData.PointsData;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CellData.ColorData
+namespace Data.CellData.ColorData
 {
     public class CellViewConfigProvider : MonoBehaviour
     {
