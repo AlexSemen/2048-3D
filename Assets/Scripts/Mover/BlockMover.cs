@@ -7,6 +7,7 @@ using Main.LimitingMover;
 using View;
 using Yandex.SaveLoad;
 using System;
+using System.Collections.Generic;
 
 namespace Mover 
 {
@@ -16,6 +17,7 @@ namespace Mover
         private const int _maxBlockMeaning = 2048;
         private const float _delayMove = 0.051f;
         private const int _modifierBlockMeaning = 2;
+        private const int _cellEdge = 4;
 
         [SerializeField] private Player _player;
         [SerializeField] private FaceController _faceController;
@@ -23,6 +25,10 @@ namespace Mover
         [SerializeField] private SpamerBlocks _spamerBlocks;
         [SerializeField] private SavingLoading _savingLoading;
         [SerializeField] private LimitingMovements _limitingMovements;
+
+        private readonly SettingsLoop _settingsLoopDefaultIncreasing = new SettingsLoop(_cellEdge - 1);
+        private readonly SettingsLoop _settingsLoopDefaultIncreasingStartingFromValueOne = new SettingsLoop(_cellEdge - 1, 1);
+        private readonly SettingsLoop _settingsLoopDefaultDecreasing = new SettingsLoop(0, _cellEdge - 2, false);
 
         private AudioSource _audioSource;
         private WaitForSecondsRealtime _waitForSecondsRealtime;
@@ -32,6 +38,8 @@ namespace Mover
         private bool _isMove = false;
         private bool _isWork = true;
         private bool _isAudio = false;
+        private List<ValueIJ> _valueIJs;
+        private MoveType _currentMoveType;
 
         public bool IsMove => _isMove;
 
@@ -116,6 +124,9 @@ namespace Mover
 
         private IEnumerator Moving(MoveType moveType)
         {
+            _valueIJs = GetValueIJ(moveType);
+            _currentMoveType = moveType;
+
             do
             {
                 _isWork = false;
@@ -123,19 +134,18 @@ namespace Mover
                 switch (moveType)
                 {
                     case MoveType.Left:
-                        MovingLeft();
+                        MoveCells((ValueIJ valueIJ) => new Vector2Int(valueIJ.I, valueIJ.J - 1));
                         break;
                     case MoveType.Right:
-                        MovingRight();
+                        MoveCells((ValueIJ valueIJ) => new Vector2Int(valueIJ.I, valueIJ.J + 1));
                         break;
                     case MoveType.Up:
-                        MovingUp();
+                        MoveCells((ValueIJ valueIJ) => new Vector2Int(valueIJ.I - 1, valueIJ.J));
                         break;
                     case MoveType.Down:
-                        MovingDown();
+                        MoveCells((ValueIJ valueIJ) => new Vector2Int(valueIJ.I + 1, valueIJ.J));
                         break;
                 }
-                
 
                 yield return _waitForSecondsRealtime;
 
@@ -145,73 +155,41 @@ namespace Mover
             FinishMoving();
         }
 
-        private void MovingLeft()
+        private List<ValueIJ> GetValueIJ(MoveType moveType)
         {
-            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_faceController.ActiveFace.CellEdge - 1),
-                    new SettingsLoop(_faceController.ActiveFace.CellEdge - 1, 1)))
+            switch (moveType)
+            {
+                case MoveType.Left:
+                    return DoubleLoop.GetValues(_settingsLoopDefaultIncreasing, _settingsLoopDefaultIncreasingStartingFromValueOne);
+
+                case MoveType.Right:
+                    return DoubleLoop.GetValues(_settingsLoopDefaultIncreasing, _settingsLoopDefaultDecreasing);
+                    
+                case MoveType.Up:
+                    return DoubleLoop.GetValues(_settingsLoopDefaultIncreasing, _settingsLoopDefaultIncreasingStartingFromValueOne, true);
+
+                case MoveType.Down:
+                    return DoubleLoop.GetValues(_settingsLoopDefaultDecreasing, _settingsLoopDefaultIncreasing);
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+
+            }
+        }
+
+        private void MoveCells(Func<ValueIJ, Vector2Int> targetCell—oordinates)
+        {
+            foreach (ValueIJ valueIJ in _valueIJs)
             {
                 if (_faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J).Block != null)
                 {
                     _cell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J);
-                    _targetCell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J - 1);
+
+                    _targetCell = _faceController.ActiveFace.GetCell(targetCell—oordinates(valueIJ));
 
                     if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
                     {
-                        SuccessfullyMoved(valueIJ.J, valueIJ.I, MoveType.Left);
-                    }
-                }
-            }
-        }
-
-        private void MovingRight()
-        {
-            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_faceController.ActiveFace.CellEdge - 1),
-                   new SettingsLoop(0, _faceController.ActiveFace.CellEdge - 2, false)))
-            {
-                if (_faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J).Block != null)
-                {
-                    _cell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J);
-                    _targetCell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J + 1);
-
-                    if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
-                    {
-                        SuccessfullyMoved(valueIJ.J, valueIJ.I, MoveType.Right);
-                    }
-                }
-            }
-        }
-
-        private void MovingUp()
-        {
-            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(_faceController.ActiveFace.CellEdge - 1),
-                   new SettingsLoop(_faceController.ActiveFace.CellEdge - 1, 1)))
-            {
-                if (_faceController.ActiveFace.GetCell(valueIJ.J, valueIJ.I).Block != null)
-                {
-                    _cell = _faceController.ActiveFace.GetCell(valueIJ.J, valueIJ.I);
-                    _targetCell = _faceController.ActiveFace.GetCell(valueIJ.J - 1, valueIJ.I);
-
-                    if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
-                    {
-                        SuccessfullyMoved(valueIJ.I, valueIJ.J, MoveType.Up);
-                    }
-                }
-            }
-        }
-
-        private void MovingDown()
-        {
-            foreach (ValueIJ valueIJ in DoubleLoop.GetValues(new SettingsLoop(0, _faceController.ActiveFace.CellEdge - 2, false),
-                  new SettingsLoop(_faceController.ActiveFace.CellEdge - 1)))
-            {
-                if (_faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J).Block != null)
-                {
-                    _cell = _faceController.ActiveFace.GetCell(valueIJ.I, valueIJ.J);
-                    _targetCell = _faceController.ActiveFace.GetCell(valueIJ.I + 1, valueIJ.J);
-
-                    if (TryMoving(_cell, _targetCell) || TryMerge(_cell, _targetCell))
-                    {
-                        SuccessfullyMoved(valueIJ.J, valueIJ.I, MoveType.Down);
+                        SuccessfullyMoved(valueIJ.J, valueIJ.I, _currentMoveType);
                     }
                 }
             }

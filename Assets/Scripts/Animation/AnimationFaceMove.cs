@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using View;
+using Mover;
 
 namespace Animation
 {
@@ -32,34 +33,40 @@ namespace Animation
             }
         }
 
-        public void MoveLeftLine()
+        public void MoveLine(MoveType moveType)
         {
-            Play(0, _moveLineRotate);
+            switch(moveType)
+            {
+                case MoveType.Left:
+                    Play(0, _moveLineRotate);
+                    break;
+                    
+                case MoveType.Right:
+                    Play(0, -_moveLineRotate);
+                    break;
+            }
         }
 
-        public void MoveRightLine()
+        public void MoveCub(MoveType moveType)
         {
-            Play(0, -_moveLineRotate);
-        }
+            switch (moveType)
+            {
+                case MoveType.Left:
+                    Play(0, _moveCubRotate);
+                    break;
 
-        public void MoveLeftCub()
-        {
-            Play(0, _moveCubRotate);
-        }
-
-        public void MoveRightCub()
-        {
-            Play(0, -_moveCubRotate);
-        }
-
-        public void MoveUpCub()
-        {
-            Play(_moveCubRotate, 0);
-        }
-
-        public void MoveDownCub()
-        {
-            Play(-_moveCubRotate, 0);
+                case MoveType.Right:
+                    Play(0, -_moveCubRotate);
+                    break;
+                    
+                case MoveType.Up:
+                    Play(_moveCubRotate, 0);
+                    break;
+                    
+                case MoveType.Down:
+                    Play(-_moveCubRotate, 0);
+                    break;
+            }
         }
 
         private void Play(float x, float y)

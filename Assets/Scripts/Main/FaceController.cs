@@ -84,75 +84,22 @@ namespace Main {
 
         public void MoveLeft(bool isAnimation = true)
         {
-            if (_animationFaceMove.IsMove)
-                return;
-
-            _faceMover.MoveLeft(_faces, ref _upFace, ref _downFace);
-            SetViewFace();
-
-            if (isAnimation)
-            {
-                if (_animationFaceMove.IsMove)
-                    return;
-
-                if (_shapeType == ShapeType.Cub)
-                {
-                    _animationFaceMove.MoveLeftCub();
-                }
-                else
-                {
-                    _animationFaceMove.MoveLeftLine();
-                }
-            }
+            Move(MoveType.Left, isAnimation);
         }
 
         public void MoveRight(bool isAnimation = true)
         {
-            if (_animationFaceMove.IsMove)
-                return;
-
-            _faceMover.MoveRight(_faces, ref _upFace, ref _downFace);
-            SetViewFace();
-
-            if (isAnimation)
-            {
-                if (_shapeType == ShapeType.Cub)
-                {
-                    _animationFaceMove.MoveRightCub();
-                }
-                else
-                {
-                    _animationFaceMove.MoveRightLine();
-                }
-            }
+            Move(MoveType.Right, isAnimation);
         }
 
         public void MoveUp(bool isAnimation = true)
         {
-            if (_animationFaceMove.IsMove)
-                return;
-
-            _faceMover.MoveUp(_faces, ref _upFace, ref _downFace);
-            SetViewFace();
-
-            if (isAnimation)
-            {
-                _animationFaceMove.MoveUpCub();
-            }
+            Move(MoveType.Up, isAnimation);
         }
 
         public void MoveDown(bool isAnimation = true)
         {
-            if (_animationFaceMove.IsMove)
-                return;
-
-            _faceMover.MoveDown(_faces, ref _upFace, ref _downFace);
-            SetViewFace();
-
-            if (isAnimation)
-            {
-                _animationFaceMove.MoveDownCub();
-            }
+            Move(MoveType.Down, isAnimation);
         }
 
         public void UpdateViewFaceController()
@@ -164,6 +111,30 @@ namespace Main {
         {
             _faceData.SetData(this);
             return _faceData;
+        }
+
+        private void Move(MoveType moveType, bool isAnimation = true)
+        {
+            if (_animationFaceMove.IsMove)
+                return;
+
+            _faceMover.Move(moveType, _faces, ref _upFace, ref _downFace);
+            SetViewFace();
+
+            if (isAnimation)
+            {
+                if (_animationFaceMove.IsMove)
+                    return;
+
+                if (_shapeType == ShapeType.Cub)
+                {
+                    _animationFaceMove.MoveCub(moveType);
+                }
+                else
+                {
+                    _animationFaceMove.MoveLine(moveType);
+                }
+            }
         }
 
         private void SetViewFace()

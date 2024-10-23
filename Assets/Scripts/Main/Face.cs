@@ -1,6 +1,7 @@
 using Loop;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Main {
     public class Face
@@ -42,23 +43,33 @@ namespace Main {
 
         public void InitUp(IReadOnlyList<Face> faces)
         {
-            if (faces.Count != QuantityFaceOfCube)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            for (int i = 0; i < CellEdge; i++)
-            {
-                _cells[i, 0] = faces[IndexLeftFaceCub].GetCell(0, i);
-                _cells[i, CellEdge - 1] = faces[IndexRightFaceCub].GetCell(0, CellEdge - i - 1);
-                _cells[0, i] = faces[IndexRearFaceCub].GetCell(0, CellEdge - i - 1);
-                _cells[CellEdge - 1, i] = faces[IndexActiveFaceCub].GetCell(0, i);
-            }
-            
-            FillEmptyCell();
+            InitUp2(
+                faces,
+                true,
+                (i) => new Vector2Int(0, i),
+                (i) => new Vector2Int(0, CellEdge - i - 1),
+                (i) => new Vector2Int(0, CellEdge - i - 1),
+                (i) => new Vector2Int(0, i));
         }
 
         public void InitDown(IReadOnlyList<Face> faces)
+        {
+            InitUp2(
+                faces,
+                false,
+                (i) => new Vector2Int(CellEdge - 1, CellEdge - i - 1),
+                (i) => new Vector2Int(CellEdge - 1, i),
+                (i) => new Vector2Int(CellEdge - 1, CellEdge - i - 1),
+                (i) => new Vector2Int(CellEdge - 1, i));
+        }
+
+        private void InitUp2(
+            IReadOnlyList<Face> faces,
+            bool isUp,
+            Func<int, Vector2Int> leftFaceCellVector2Int,
+            Func<int, Vector2Int> rightFaceCellVector2Int,
+            Func<int, Vector2Int> rearFaceCellVector2Int,
+            Func<int, Vector2Int> activeFaceCellVector2Int)
         {
             if (faces.Count != QuantityFaceOfCube)
             {
@@ -67,10 +78,19 @@ namespace Main {
 
             for (int i = 0; i < CellEdge; i++)
             {
-                _cells[i, 0] = faces[IndexLeftFaceCub].GetCell(CellEdge - 1, CellEdge - i - 1);
-                _cells[i, CellEdge - 1] = faces[IndexRightFaceCub].GetCell(CellEdge - 1, i);
-                _cells[0, i] = faces[IndexActiveFaceCub].GetCell(CellEdge - 1, i);
-                _cells[CellEdge - 1, i] = faces[IndexRearFaceCub].GetCell(CellEdge - 1, CellEdge - i - 1);
+                _cells[i, 0] = faces[IndexLeftFaceCub].GetCell(leftFaceCellVector2Int(i));
+                _cells[i, CellEdge - 1] = faces[IndexRightFaceCub].GetCell(rightFaceCellVector2Int(i));
+                
+                if (isUp)
+                {
+                    _cells[0, i] = faces[IndexRearFaceCub].GetCell(rearFaceCellVector2Int(i));
+                    _cells[CellEdge - 1, i] = faces[IndexActiveFaceCub].GetCell(activeFaceCellVector2Int(i));
+                }
+                else
+                {
+                    _cells[0, i] = faces[IndexActiveFaceCub].GetCell(activeFaceCellVector2Int(i));
+                    _cells[CellEdge - 1, i] = faces[IndexRearFaceCub].GetCell(rearFaceCellVector2Int(i));
+                }
             }
 
             FillEmptyCell();
@@ -79,6 +99,11 @@ namespace Main {
         public Cell GetCell(int i, int j)
         {
             return _cells[i, j];
+        }
+
+        public Cell GetCell(Vector2Int vector2)
+        {
+            return GetCell(vector2.x, vector2.y);
         }
 
         public void ThrowStatusBlock()
@@ -118,17 +143,25 @@ namespace Main {
 
         private void FillCellLeft(Face faceLeft)
         {
-            for (int i = 0; i < CellEdge; i++)
-            {
-                _cells[i, 0] = faceLeft.GetCell(i, CellEdge - 1);
-            }
+            FillCells(
+                faceLeft,
+                (i) => new Vector2Int(i, 0),
+                (i) => new Vector2Int(i, CellEdge - 1));
         }
 
         private void FillCellRight(Face faceRight)
         {
+            FillCells(
+               faceRight,
+               (i) => new Vector2Int(i, CellEdge - 1),
+               (i) => new Vector2Int(i, 0));
+        }
+
+        private void FillCells(Face face, Func<int, Vector2Int> coordinatesCells, Func<int, Vector2Int> coordinatesTargetFaceCells)
+        {
             for (int i = 0; i < CellEdge; i++)
             {
-                _cells[i, CellEdge - 1] = faceRight.GetCell(i, 0);
+                _cells[coordinatesCells(i).x, coordinatesCells(i).y] = face.GetCell(coordinatesTargetFaceCells(i));
             }
         }
     }
